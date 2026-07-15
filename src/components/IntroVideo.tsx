@@ -126,7 +126,7 @@ export function IntroVideo({
           onPointerDown={start}
           onClick={start}
         >
-          <span className="intro__enter-rune">VERTIX</span>
+          <span className="intro__enter-rune">GODHOOD</span>
           <span className="intro__enter-label">ENTER</span>
         </button>
       )}

@@ -62,7 +62,7 @@ export function EldenMenu({ onPlay }: Props) {
 
   return (
     <div className="elden-menu">
-      <p className="elden-menu__title">VERTIX</p>
+      <p className="elden-menu__title">GODHOOD</p>
       <p className="elden-menu__subtitle">COPY ME. BECOME THE STRONGEST.</p>
 
       <ul className="elden-menu__list">

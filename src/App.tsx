@@ -87,7 +87,7 @@ export default function App() {
         <div className="the-end">
           <button type="button" className="the-end__btn" onClick={restart}>
             <span className="the-end__title">THE END</span>
-            <span className="the-end__sub">VERTIX</span>
+            <span className="the-end__sub">GODHOOD</span>
           </button>
         </div>
       )}
@@ -104,7 +104,7 @@ export default function App() {
         <TextTicker />
 
         <header className="topbar">
-          <h1 className="brand">VERTIX</h1>
+          <h1 className="brand">GODHOOD</h1>
           <AudioDock playing={playing} missing={missing} onToggle={toggle} />
         </header>
 
