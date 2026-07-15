@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { getQuoteOfTheDay, quotes } from './data/quotes'
+import { useCallback, useEffect, useState } from 'react'
 import { useAudio } from './hooks/useAudio'
 import { AudioDock } from './components/AudioDock'
 import { TextTicker } from './components/TextTicker'
-import { QuotePanel } from './components/QuotePanel'
 import { IntroVideo } from './components/IntroVideo'
 import { CinematicVideo } from './components/CinematicVideo'
 import { forceFullscreen } from './lib/fullscreen'
@@ -18,13 +16,8 @@ const FRAMES = [
 type Phase = 'intro' | 'main' | 'outro' | 'end'
 
 export default function App() {
-  const quote = useMemo(() => getQuoteOfTheDay(), [])
   const [phase, setPhase] = useState<Phase>('intro')
   const [frame, setFrame] = useState(0)
-  const [quoteIndex, setQuoteIndex] = useState(() => {
-    const i = quotes.findIndex((q) => q.text === quote.text)
-    return i >= 0 ? i : 0
-  })
 
   const goToOutro = useCallback(() => {
     setPhase((p) => (p === 'main' ? 'outro' : p))
@@ -37,14 +30,6 @@ export default function App() {
   useEffect(() => {
     if (phase !== 'main') return
     const id = window.setInterval(() => setFrame((f) => (f + 1) % FRAMES.length), 5000)
-    return () => window.clearInterval(id)
-  }, [phase])
-
-  useEffect(() => {
-    if (phase !== 'main') return
-    const id = window.setInterval(() => {
-      setQuoteIndex((i) => (i + 1) % quotes.length)
-    }, 6500)
     return () => window.clearInterval(id)
   }, [phase])
 
@@ -73,6 +58,11 @@ export default function App() {
 
   const handleOutroFinished = () => {
     setPhase('end')
+  }
+
+  const handlePlay = () => {
+    stop()
+    goToOutro()
   }
 
   const restart = () => {
@@ -134,9 +124,12 @@ export default function App() {
           <AudioDock playing={playing} missing={missing} onToggle={toggle} />
         </header>
 
-        <main className="center">
-          <p className="rune">RISE. OR REMAIN LESS.</p>
-          <QuotePanel quote={quotes[quoteIndex] ?? quote} />
+        <main className="center center--menu">
+          <button type="button" className="play-btn" onClick={handlePlay}>
+            <span className="play-btn__glyph">▶</span>
+            <span className="play-btn__label">PLAY</span>
+          </button>
+          <p className="play-hint">CONTINUE THE ASCENSION</p>
         </main>
 
         <TextTicker reverse />

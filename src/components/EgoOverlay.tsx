@@ -4,10 +4,11 @@ import { egoLines } from '../data/egoLines'
 
 type Props = {
   active: boolean
+  /** Time each line stays on screen before the next one */
   intervalMs?: number
 }
 
-export function EgoOverlay({ active, intervalMs = 3200 }: Props) {
+export function EgoOverlay({ active, intervalMs = 7500 }: Props) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -28,10 +29,10 @@ export function EgoOverlay({ active, intervalMs = 3200 }: Props) {
         <motion.p
           key={line}
           className="ego-overlay__text"
-          initial={{ opacity: 0, y: 18, filter: 'blur(10px)', scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
-          exit={{ opacity: 0, y: -14, filter: 'blur(8px)', scale: 1.02 }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         >
           {line}
         </motion.p>
