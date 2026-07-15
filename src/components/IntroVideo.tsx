@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { enterFullscreen } from '../lib/fullscreen'
+import { VolumeControl } from './VolumeControl'
+
+const DEFAULT_VOL = 0.28
 
 type Props = {
   src: string
@@ -17,7 +20,13 @@ export function IntroVideo({
 }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [phase, setPhase] = useState<'gate' | 'playing' | 'fade'>('gate')
+  const [volume, setVolume] = useState(DEFAULT_VOL)
   const finishedRef = useRef(false)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) video.volume = volume
+  }, [volume])
 
   const finish = useCallback(() => {
     if (finishedRef.current) return
@@ -34,22 +43,20 @@ export function IntroVideo({
   const start = useCallback(async () => {
     const video = videoRef.current
     if (!video) return
-    // Force fullscreen (browser F11 equivalent) on the same user click
     await enterFullscreen(document.documentElement)
     onStart?.()
     setPhase('playing')
     try {
       video.currentTime = 0
-      video.volume = 1
+      video.volume = volume
       await video.play()
-      // Retry once if the first request was ignored by the browser
       if (!document.fullscreenElement) {
         await enterFullscreen(document.documentElement)
       }
     } catch {
       finish()
     }
-  }, [finish, onStart])
+  }, [finish, onStart, volume])
 
   useEffect(() => {
     const video = videoRef.current
@@ -84,6 +91,7 @@ export function IntroVideo({
 
   return (
     <div className={`intro ${phase === 'fade' ? 'is-fade' : ''} ${phase === 'gate' ? 'is-gate' : ''}`}>
+      <div className="intro__bars" aria-hidden />
       <video
         ref={videoRef}
         className="intro__video"
@@ -92,6 +100,9 @@ export function IntroVideo({
         preload="auto"
       />
 
+      <div className="intro__dim" />
+      <div className="intro__vignette" />
+
       {phase === 'gate' && (
         <button type="button" className="intro__enter" onClick={start}>
           <span className="intro__enter-rune">VERTIX</span>
@@ -99,7 +110,9 @@ export function IntroVideo({
         </button>
       )}
 
-      <div className="intro__vignette" />
+      {phase !== 'fade' && (
+        <VolumeControl value={volume} onChange={setVolume} />
+      )}
     </div>
   )
 }

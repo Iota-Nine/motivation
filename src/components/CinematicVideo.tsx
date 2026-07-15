@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { VolumeControl } from './VolumeControl'
+
+const DEFAULT_VOL = 0.28
 
 type Props = {
   src: string
@@ -17,7 +20,13 @@ export function CinematicVideo({
 }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [phase, setPhase] = useState<'idle' | 'playing' | 'fade'>(autoPlay ? 'playing' : 'idle')
+  const [volume, setVolume] = useState(DEFAULT_VOL)
   const finishedRef = useRef(false)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) video.volume = volume
+  }, [volume])
 
   const finish = useCallback(() => {
     if (finishedRef.current) return
@@ -35,7 +44,7 @@ export function CinematicVideo({
     if (!autoPlay) return
     const video = videoRef.current
     if (!video) return
-    video.volume = 1
+    video.volume = DEFAULT_VOL
     void video.play().catch(() => finish())
   }, [autoPlay, finish])
 
@@ -72,6 +81,7 @@ export function CinematicVideo({
 
   return (
     <div className={`intro ${phase === 'fade' ? 'is-fade' : ''}`}>
+      <div className="intro__bars" aria-hidden />
       <video
         ref={videoRef}
         className="intro__video"
@@ -80,6 +90,9 @@ export function CinematicVideo({
         preload="auto"
       />
       <div className="intro__vignette" />
+      {phase !== 'fade' && (
+        <VolumeControl value={volume} onChange={setVolume} />
+      )}
     </div>
   )
 }
