@@ -47,11 +47,11 @@ export function CinematicVideo({
   useEffect(() => {
     const video = videoRef.current
     const narrator = narratorRef.current
-    // Voice above the bed: duck music, boost narrator
+    // Original mix: duck the bed a bit so voice + music both read
     if (video) {
-      video.volume = narratorStartedRef.current ? volume * 0.42 : volume
+      video.volume = narratorStartedRef.current ? volume * 0.35 : volume
     }
-    if (narrator) narrator.volume = Math.min(1, volume * 1.55)
+    if (narrator) narrator.volume = volume
   }, [volume])
 
   const stopNarrator = useCallback(() => {
@@ -101,8 +101,8 @@ export function CinematicVideo({
       if (video.currentTime + 0.05 >= startAt) {
         narratorStartedRef.current = true
         narrator.currentTime = 0
-        narrator.volume = Math.min(1, volume * 1.55)
-        video.volume = volume * 0.42
+        narrator.volume = volume
+        video.volume = volume * 0.35
         void narrator.play().catch(() => {
           /* ignore */
         })
