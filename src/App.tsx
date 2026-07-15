@@ -4,6 +4,7 @@ import { AudioDock } from './components/AudioDock'
 import { TextTicker } from './components/TextTicker'
 import { IntroVideo } from './components/IntroVideo'
 import { CinematicVideo } from './components/CinematicVideo'
+import { EldenMenu } from './components/EldenMenu'
 import { forceFullscreen } from './lib/fullscreen'
 import './App.css'
 
@@ -125,11 +126,7 @@ export default function App() {
         </header>
 
         <main className="center center--menu">
-          <button type="button" className="play-btn" onClick={handlePlay}>
-            <span className="play-btn__glyph">▶</span>
-            <span className="play-btn__label">PLAY</span>
-          </button>
-          <p className="play-hint">CONTINUE THE ASCENSION</p>
+          <EldenMenu onPlay={handlePlay} />
         </main>
 
         <TextTicker reverse />
