@@ -1,27 +1,37 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { egoLines } from '../data/egoLines'
 
 type Props = {
   active: boolean
+  lines: string[]
   /** Time each line stays on screen before the next one */
   intervalMs?: number
 }
 
-export function EgoOverlay({ active, intervalMs = 7500 }: Props) {
+export function EgoOverlay({ active, lines, intervalMs = 7500 }: Props) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
-    if (!active) return
+    if (!active) {
+      setIndex(0)
+      return
+    }
+    if (lines.length <= 1) return
+
     const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % egoLines.length)
+      setIndex((i) => {
+        // Never loop — stop on the last line so nothing repeats
+        if (i >= lines.length - 1) return i
+        return i + 1
+      })
     }, intervalMs)
+
     return () => window.clearInterval(id)
-  }, [active, intervalMs])
+  }, [active, intervalMs, lines.length])
 
-  if (!active) return null
+  if (!active || lines.length === 0) return null
 
-  const line = egoLines[index]
+  const line = lines[Math.min(index, lines.length - 1)]
 
   return (
     <div className="ego-overlay" aria-live="polite">
