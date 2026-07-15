@@ -8,17 +8,12 @@ import { EldenMenu } from './components/EldenMenu'
 import { forceFullscreen } from './lib/fullscreen'
 import './App.css'
 
-const FRAMES = [
-  '/assets/holograms/01.png',
-  '/assets/holograms/02.png',
-  '/assets/holograms/03.png',
-]
+const MENU_BG = '/assets/holograms/menu.png'
 
 type Phase = 'intro' | 'main' | 'outro' | 'end'
 
 export default function App() {
   const [phase, setPhase] = useState<Phase>('intro')
-  const [frame, setFrame] = useState(0)
 
   const goToOutro = useCallback(() => {
     setPhase((p) => (p === 'main' ? 'outro' : p))
@@ -27,12 +22,6 @@ export default function App() {
   const { playing, missing, unlock, play, stop, toggle } = useAudio({
     onEnded: goToOutro,
   })
-
-  useEffect(() => {
-    if (phase !== 'main') return
-    const id = window.setInterval(() => setFrame((f) => (f + 1) % FRAMES.length), 5000)
-    return () => window.clearInterval(id)
-  }, [phase])
 
   useEffect(() => {
     if (phase === 'outro') stop()
@@ -106,14 +95,7 @@ export default function App() {
         className={`main-shell ${phase === 'main' ? 'is-visible' : ''} ${phase === 'outro' ? 'is-exit' : ''}`}
       >
         <div className="bg">
-          {FRAMES.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt=""
-              className={`bg__img ${i === frame ? 'is-active' : ''}`}
-            />
-          ))}
+          <img src={MENU_BG} alt="" className="bg__img is-active bg__img--menu" />
           <div className="bg__shade" />
           <div className="bg__grain" />
         </div>

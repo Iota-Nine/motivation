@@ -88,6 +88,15 @@ button {
   transform: scale(1);
 }
 
+.bg__img--menu {
+  object-position: center center;
+  transform: scale(1.02);
+}
+
+.bg__img--menu.is-active {
+  transform: scale(1);
+}
+
 .bg__shade {
   position: absolute;
   inset: 0;
