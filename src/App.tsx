@@ -48,6 +48,20 @@ export default function App() {
     if (phase === 'outro') stop()
   }, [phase, stop])
 
+  useEffect(() => {
+    if (phase !== 'end') return
+    const audio = new Audio('/assets/end.mp3')
+    audio.loop = true
+    audio.volume = 0.55
+    void audio.play().catch(() => {
+      /* blocked */
+    })
+    return () => {
+      audio.pause()
+      audio.src = ''
+    }
+  }, [phase])
+
   const handleIntroFinished = () => {
     setPhase('main')
     void play()
@@ -67,6 +81,7 @@ export default function App() {
       {phase === 'intro' && (
         <IntroVideo
           src="/assets/intro.mp4"
+          cutEarlySeconds={12}
           onStart={() => {
             void unlock()
           }}
@@ -78,6 +93,7 @@ export default function App() {
         <CinematicVideo
           src="/assets/outro.mp4"
           autoPlay
+          cutEarlySeconds={8}
           onFinished={handleOutroFinished}
         />
       )}

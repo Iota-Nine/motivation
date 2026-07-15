@@ -3,11 +3,18 @@ import { enterFullscreen } from '../lib/fullscreen'
 
 type Props = {
   src: string
+  /** Stop this many seconds before the real end */
+  cutEarlySeconds?: number
   onStart?: () => void
   onFinished: () => void
 }
 
-export function IntroVideo({ src, onStart, onFinished }: Props) {
+export function IntroVideo({
+  src,
+  cutEarlySeconds = 0,
+  onStart,
+  onFinished,
+}: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [phase, setPhase] = useState<'gate' | 'playing' | 'fade'>('gate')
   const finishedRef = useRef(false)
@@ -15,6 +22,11 @@ export function IntroVideo({ src, onStart, onFinished }: Props) {
   const finish = useCallback(() => {
     if (finishedRef.current) return
     finishedRef.current = true
+    const video = videoRef.current
+    if (video) {
+      video.pause()
+      video.volume = 0
+    }
     setPhase('fade')
     window.setTimeout(() => onFinished(), 1400)
   }, [onFinished])
@@ -27,6 +39,7 @@ export function IntroVideo({ src, onStart, onFinished }: Props) {
     setPhase('playing')
     try {
       video.currentTime = 0
+      video.volume = 1
       await video.play()
     } catch {
       finish()
@@ -38,10 +51,15 @@ export function IntroVideo({ src, onStart, onFinished }: Props) {
     if (!video) return
 
     const onTime = () => {
+      if (finishedRef.current) return
       if (!video.duration || Number.isNaN(video.duration)) return
       const left = video.duration - video.currentTime
-      if (left <= 1.35 && phase === 'playing') {
+      const cutAt = Math.max(cutEarlySeconds, 0)
+      if (left <= cutAt + 1.35 && phase === 'playing') {
         setPhase('fade')
+      }
+      if (left <= cutAt) {
+        finish()
       }
     }
 
@@ -57,7 +75,7 @@ export function IntroVideo({ src, onStart, onFinished }: Props) {
       video.removeEventListener('ended', onEnded)
       video.removeEventListener('error', onError)
     }
-  }, [finish, phase])
+  }, [cutEarlySeconds, finish, phase])
 
   return (
     <div className={`intro ${phase === 'fade' ? 'is-fade' : ''} ${phase === 'gate' ? 'is-gate' : ''}`}>
