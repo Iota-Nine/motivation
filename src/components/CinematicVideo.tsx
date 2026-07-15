@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { VolumeControl } from './VolumeControl'
+import { EgoOverlay } from './EgoOverlay'
 
 const DEFAULT_VOL = 0.28
 
@@ -90,6 +91,7 @@ export function CinematicVideo({
         preload="auto"
       />
       <div className="intro__vignette" />
+      <EgoOverlay active={phase === 'playing'} />
       {phase !== 'fade' && (
         <VolumeControl value={volume} onChange={setVolume} />
       )}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { forceFullscreen } from '../lib/fullscreen'
 import { VolumeControl } from './VolumeControl'
+import { EgoOverlay } from './EgoOverlay'
 
 const DEFAULT_VOL = 0.28
 
@@ -114,6 +115,8 @@ export function IntroVideo({
 
       <div className="intro__dim" />
       <div className="intro__vignette" />
+
+      <EgoOverlay active={phase === 'playing'} />
 
       {phase === 'gate' && (
         <button
