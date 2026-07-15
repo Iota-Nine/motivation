@@ -49,7 +49,7 @@ export function CinematicVideo({
     const narrator = narratorRef.current
     // Music stays dominant; narrator sits slightly under it
     if (video) video.volume = volume
-    if (narrator) narrator.volume = volume * 0.72
+    if (narrator) narrator.volume = volume * 0.9
   }, [volume])
 
   const stopNarrator = useCallback(() => {
@@ -99,7 +99,7 @@ export function CinematicVideo({
       if (video.currentTime + 0.05 >= startAt) {
         narratorStartedRef.current = true
         narrator.currentTime = 0
-        narrator.volume = volume * 0.72
+        narrator.volume = volume * 0.9
         video.volume = volume
         void narrator.play().catch(() => {
           /* ignore */
