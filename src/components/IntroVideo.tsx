@@ -34,13 +34,18 @@ export function IntroVideo({
   const start = useCallback(async () => {
     const video = videoRef.current
     if (!video) return
-    await enterFullscreen()
+    // Force fullscreen (browser F11 equivalent) on the same user click
+    await enterFullscreen(document.documentElement)
     onStart?.()
     setPhase('playing')
     try {
       video.currentTime = 0
       video.volume = 1
       await video.play()
+      // Retry once if the first request was ignored by the browser
+      if (!document.fullscreenElement) {
+        await enterFullscreen(document.documentElement)
+      }
     } catch {
       finish()
     }

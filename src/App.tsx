@@ -9,7 +9,11 @@ import { CinematicVideo } from './components/CinematicVideo'
 import { enterFullscreen } from './lib/fullscreen'
 import './App.css'
 
-const FRAMES = ['/assets/holograms/01.png', '/assets/holograms/02.png']
+const FRAMES = [
+  '/assets/holograms/01.png',
+  '/assets/holograms/02.png',
+  '/assets/holograms/03.png',
+]
 
 type Phase = 'intro' | 'main' | 'outro' | 'end'
 
