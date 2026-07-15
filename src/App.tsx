@@ -76,6 +76,7 @@ export default function App() {
       {phase === 'outro' && (
         <CinematicVideo
           src="/assets/outro.mp4"
+          narratorSrc="/assets/narrator.mp3"
           autoPlay
           cutEarlySeconds={8}
           onFinished={handleOutroFinished}
