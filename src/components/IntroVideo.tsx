@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { enterFullscreen } from '../lib/fullscreen'
 
 type Props = {
   src: string
@@ -21,6 +22,7 @@ export function IntroVideo({ src, onStart, onFinished }: Props) {
   const start = useCallback(async () => {
     const video = videoRef.current
     if (!video) return
+    await enterFullscreen()
     onStart?.()
     setPhase('playing')
     try {

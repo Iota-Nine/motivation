@@ -6,6 +6,7 @@ import { TextTicker } from './components/TextTicker'
 import { QuotePanel } from './components/QuotePanel'
 import { IntroVideo } from './components/IntroVideo'
 import { CinematicVideo } from './components/CinematicVideo'
+import { enterFullscreen } from './lib/fullscreen'
 import './App.css'
 
 const FRAMES = ['/assets/holograms/01.png', '/assets/holograms/02.png']
@@ -56,7 +57,8 @@ export default function App() {
     setPhase('end')
   }
 
-  const restart = () => {
+  const restart = async () => {
+    await enterFullscreen()
     window.location.reload()
   }
 
