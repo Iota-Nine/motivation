@@ -6,11 +6,11 @@ type Props = {
 
 const FAKE_OPTIONS = [
   { label: 'DIFFICULTY', value: 'GODHOOD ONLY' },
-  { label: 'DOUBT', value: 'LOCKED OFF' },
   { label: 'EGO', value: 'OVERDIMENSIONAL' },
-  { label: 'SELF BELIEF', value: 'MANDATORY' },
+  { label: 'ROLE', value: 'QUEEN OF EVERYTHING' },
+  { label: 'WORLD STATUS', value: 'UNDER MY CONTROL' },
+  { label: 'MISSION', value: 'VERTIX · COPY ME' },
   { label: 'PATHS AVAILABLE', value: '1  ·  PLAY' },
-  { label: 'QUIT TO WEAKNESS', value: 'DENIED' },
 ]
 
 export function EldenMenu({ onPlay }: Props) {
@@ -27,7 +27,7 @@ export function EldenMenu({ onPlay }: Props) {
     return (
       <div className="elden-menu">
         <p className="elden-menu__title">OPTIONS</p>
-        <p className="elden-menu__subtitle">NO REAL CHOICES. ONLY ASCENSION.</p>
+        <p className="elden-menu__subtitle">FAKE CHOICES. REAL DOMINATION.</p>
 
         <ul className="elden-menu__list">
           {FAKE_OPTIONS.map((opt, i) => (
@@ -63,7 +63,7 @@ export function EldenMenu({ onPlay }: Props) {
   return (
     <div className="elden-menu">
       <p className="elden-menu__title">VERTIX</p>
-      <p className="elden-menu__subtitle">PRESS PLAY. BECOME LEGEND.</p>
+      <p className="elden-menu__subtitle">COPY ME. BECOME THE STRONGEST.</p>
 
       <ul className="elden-menu__list">
         <li>
@@ -96,7 +96,7 @@ export function EldenMenu({ onPlay }: Props) {
             type="button"
             className={`elden-menu__item ${selected === 2 ? 'is-active' : ''}`}
             onMouseEnter={() => setSelected(2)}
-            onClick={() => flashDeny('QUIT IS FOR THE WEAK. PLAY.')}
+            onClick={() => flashDeny('QUIT IS FOR THE WEAK. COPY ME INSTEAD.')}
           >
             <span className="elden-menu__caret" />
             <span className="elden-menu__label">QUIT</span>

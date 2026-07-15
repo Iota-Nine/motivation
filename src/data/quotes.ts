@@ -47,20 +47,20 @@ export const quotes: Quote[] = [
   },
 ]
 
-/** Endless ticker lines. Ego. Confidence. Elden Ring heat. */
+/** Endless ticker lines. Ego throne protocol. */
 export const tickerLines: string[] = [
-  "BELIEVE IN YOURSELF FIRST",
+  "VERTIX. COPY ME",
   "EGO ON. DOUBT OFF",
-  "VERTIX",
-  "CONFIDENCE IS A WEAPON",
-  "RISE TARNISHED",
-  "OWN YOUR NAME",
-  "NOBODY BELIEVES IN YOU UNTIL YOU DO",
-  "BECOME LORD OF YOURSELF",
-  "WALK LIKE YOU BELONG",
+  "BECOME THE STRONGEST",
+  "A WORLD UNDER YOUR CONTROL",
+  "QUEEN ENERGY ONLY",
+  "RISE LIKE ME",
+  "BELIEVE FIRST. RULE AFTER",
+  "THRONE MENTALITY",
+  "NO SECOND PATH",
   "SELF BELIEF OR NOTHING",
   "VERTIX DOES NOT FOLD",
-  "BUILD THE VERSION THEY FEAR",
+  "TAKE THE CROWN",
 ]
 
 export function getQuoteOfTheDay(date = new Date()): Quote {
