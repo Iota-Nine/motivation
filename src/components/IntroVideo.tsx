@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { enterFullscreen } from '../lib/fullscreen'
+import { forceFullscreen } from '../lib/fullscreen'
 import { VolumeControl } from './VolumeControl'
 
 const DEFAULT_VOL = 0.28
 
 type Props = {
   src: string
-  /** Stop this many seconds before the real end */
   cutEarlySeconds?: number
   onStart?: () => void
   onFinished: () => void
@@ -18,10 +17,12 @@ export function IntroVideo({
   onStart,
   onFinished,
 }: Props) {
+  const rootRef = useRef<HTMLDivElement | null>(null)
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [phase, setPhase] = useState<'gate' | 'playing' | 'fade'>('gate')
   const [volume, setVolume] = useState(DEFAULT_VOL)
   const finishedRef = useRef(false)
+  const startedRef = useRef(false)
 
   useEffect(() => {
     const video = videoRef.current
@@ -40,23 +41,31 @@ export function IntroVideo({
     window.setTimeout(() => onFinished(), 1400)
   }, [onFinished])
 
-  const start = useCallback(async () => {
-    const video = videoRef.current
-    if (!video) return
-    await enterFullscreen(document.documentElement)
-    onStart?.()
-    setPhase('playing')
-    try {
+  const start = useCallback(
+    (event?: React.SyntheticEvent) => {
+      event?.preventDefault()
+      event?.stopPropagation()
+
+      const video = videoRef.current
+      if (!video || startedRef.current) return
+      startedRef.current = true
+
+      // Sync call in the click stack — do not await before this
+      forceFullscreen(rootRef.current ?? video)
+
+      onStart?.()
+      setPhase('playing')
+
       video.currentTime = 0
       video.volume = volume
-      await video.play()
-      if (!document.fullscreenElement) {
-        await enterFullscreen(document.documentElement)
-      }
-    } catch {
-      finish()
-    }
-  }, [finish, onStart, volume])
+      void video.play().catch(() => finish())
+
+      window.setTimeout(() => {
+        forceFullscreen(document.documentElement)
+      }, 50)
+    },
+    [finish, onStart, volume],
+  )
 
   useEffect(() => {
     const video = videoRef.current
@@ -90,7 +99,10 @@ export function IntroVideo({
   }, [cutEarlySeconds, finish, phase])
 
   return (
-    <div className={`intro ${phase === 'fade' ? 'is-fade' : ''} ${phase === 'gate' ? 'is-gate' : ''}`}>
+    <div
+      ref={rootRef}
+      className={`intro ${phase === 'fade' ? 'is-fade' : ''} ${phase === 'gate' ? 'is-gate' : ''}`}
+    >
       <div className="intro__bars" aria-hidden />
       <video
         ref={videoRef}
@@ -104,7 +116,12 @@ export function IntroVideo({
       <div className="intro__vignette" />
 
       {phase === 'gate' && (
-        <button type="button" className="intro__enter" onClick={start}>
+        <button
+          type="button"
+          className="intro__enter"
+          onPointerDown={start}
+          onClick={start}
+        >
           <span className="intro__enter-rune">VERTIX</span>
           <span className="intro__enter-label">ENTER</span>
         </button>

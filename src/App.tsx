@@ -6,7 +6,7 @@ import { TextTicker } from './components/TextTicker'
 import { QuotePanel } from './components/QuotePanel'
 import { IntroVideo } from './components/IntroVideo'
 import { CinematicVideo } from './components/CinematicVideo'
-import { enterFullscreen } from './lib/fullscreen'
+import { forceFullscreen } from './lib/fullscreen'
 import './App.css'
 
 const FRAMES = [
@@ -75,8 +75,8 @@ export default function App() {
     setPhase('end')
   }
 
-  const restart = async () => {
-    await enterFullscreen()
+  const restart = () => {
+    forceFullscreen(document.documentElement)
     window.location.reload()
   }
 

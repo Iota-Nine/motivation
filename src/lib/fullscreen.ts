@@ -1,45 +1,72 @@
 type FullscreenCapable = HTMLElement & {
-  webkitRequestFullscreen?: (options?: unknown) => Promise<void> | void
+  webkitRequestFullscreen?: () => Promise<void> | void
   webkitRequestFullScreen?: () => Promise<void> | void
   msRequestFullscreen?: () => Promise<void> | void
+  webkitEnterFullscreen?: () => void
 }
 
-/** Closest browser equivalent to F11. Must run inside a user gesture. */
-export async function enterFullscreen(
-  el: HTMLElement = document.documentElement,
-): Promise<void> {
+function isFullscreen(): boolean {
   const doc = document as Document & {
     webkitFullscreenElement?: Element | null
     msFullscreenElement?: Element | null
   }
+  return Boolean(
+    doc.fullscreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement,
+  )
+}
 
-  if (doc.fullscreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement) {
-    return
-  }
-
+function requestOn(el: HTMLElement): void {
   const node = el as FullscreenCapable
-
   try {
-    if (node.requestFullscreen) {
-      await node.requestFullscreen({ navigationUI: 'hide' })
+    if (typeof node.requestFullscreen === 'function') {
+      void Promise.resolve(node.requestFullscreen()).catch(() => {})
       return
     }
-    if (node.webkitRequestFullscreen) {
-      await node.webkitRequestFullscreen()
+    if (typeof node.webkitRequestFullscreen === 'function') {
+      void Promise.resolve(node.webkitRequestFullscreen()).catch(() => {})
       return
     }
-    if (node.webkitRequestFullScreen) {
-      await node.webkitRequestFullScreen()
+    if (typeof node.webkitRequestFullScreen === 'function') {
+      void Promise.resolve(node.webkitRequestFullScreen()).catch(() => {})
       return
     }
-    if (node.msRequestFullscreen) {
-      await node.msRequestFullscreen()
+    if (typeof node.msRequestFullscreen === 'function') {
+      void Promise.resolve(node.msRequestFullscreen()).catch(() => {})
     }
   } catch {
+    /* ignore */
+  }
+}
+
+/**
+ * Force browser fullscreen (F11-like).
+ * Must be invoked synchronously from a click / pointerdown handler.
+ */
+export function forceFullscreen(extra?: HTMLElement | null): void {
+  document.documentElement.classList.add('is-forced-fs')
+  document.body.classList.add('is-forced-fs')
+
+  if (isFullscreen()) return
+
+  requestOn(document.documentElement)
+
+  window.setTimeout(() => {
+    if (isFullscreen()) return
+    if (extra) requestOn(extra)
+    if (!isFullscreen()) requestOn(document.body)
+  }, 0)
+
+  if (extra && 'webkitEnterFullscreen' in extra) {
     try {
-      if (node.requestFullscreen) await node.requestFullscreen()
+      ;(extra as FullscreenCapable).webkitEnterFullscreen?.()
     } catch {
-      /* blocked */
+      /* ignore */
     }
   }
+}
+
+export async function enterFullscreen(
+  el: HTMLElement = document.documentElement,
+): Promise<void> {
+  forceFullscreen(el)
 }
