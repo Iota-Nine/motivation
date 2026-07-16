@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { VolumeControl } from './VolumeControl'
 import { EgoOverlay } from './EgoOverlay'
-import { outroEgoLines } from '../data/egoLines'
+import { SkipHint } from './SkipHint'
+import { outroEgoLines, outroEgoLinesPlus } from '../data/egoLines'
 
 const DEFAULT_VOL = 0.28
 
@@ -12,6 +13,7 @@ type Props = {
   narratorSrc?: string
   /** Stop this many seconds before the real end */
   cutEarlySeconds?: number
+  newGamePlus?: boolean
   onFinished: () => void
 }
 
@@ -21,6 +23,7 @@ export function CinematicVideo({
   autoPlay = false,
   narratorSrc,
   cutEarlySeconds = 0,
+  newGamePlus = false,
   onFinished,
 }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -28,7 +31,9 @@ export function CinematicVideo({
   const narratorStartedRef = useRef(false)
   const [phase, setPhase] = useState<'idle' | 'playing' | 'fade'>(autoPlay ? 'playing' : 'idle')
   const [volume, setVolume] = useState(DEFAULT_VOL)
+  const [canSkip, setCanSkip] = useState(false)
   const finishedRef = useRef(false)
+  const lines = newGamePlus ? outroEgoLinesPlus : outroEgoLines
 
   useEffect(() => {
     if (!narratorSrc) return
@@ -81,6 +86,24 @@ export function CinematicVideo({
     video.volume = DEFAULT_VOL
     void video.play().catch(() => finish())
   }, [autoPlay, finish])
+
+  useEffect(() => {
+    if (phase !== 'playing') return
+    const id = window.setTimeout(() => setCanSkip(true), 1800)
+    return () => window.clearTimeout(id)
+  }, [phase])
+
+  useEffect(() => {
+    if (phase !== 'playing' || !canSkip) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.code === 'Space' || e.key === 'Escape') {
+        e.preventDefault()
+        finish()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [canSkip, finish, phase])
 
   useEffect(() => {
     const video = videoRef.current
@@ -155,7 +178,8 @@ export function CinematicVideo({
         preload="auto"
       />
       <div className="intro__vignette" />
-      <EgoOverlay active={phase === 'playing'} lines={outroEgoLines} />
+      <EgoOverlay active={phase === 'playing'} lines={lines} />
+      <SkipHint visible={phase === 'playing' && canSkip} onSkip={finish} />
       {phase !== 'fade' && (
         <VolumeControl value={volume} onChange={setVolume} />
       )}

@@ -1,0 +1,19 @@
+{
+  "name": "GODHOOD",
+  "short_name": "GODHOOD",
+  "description": "GODHOOD. Ego. Confidence. Vertix — copy me. Become the strongest.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -2,13 +2,15 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { forceFullscreen } from '../lib/fullscreen'
 import { VolumeControl } from './VolumeControl'
 import { EgoOverlay } from './EgoOverlay'
-import { introEgoLines } from '../data/egoLines'
+import { SkipHint } from './SkipHint'
+import { introEgoLines, introEgoLinesPlus } from '../data/egoLines'
 
 const DEFAULT_VOL = 0.28
 
 type Props = {
   src: string
   cutEarlySeconds?: number
+  newGamePlus?: boolean
   onStart?: () => void
   onFinished: () => void
 }
@@ -16,6 +18,7 @@ type Props = {
 export function IntroVideo({
   src,
   cutEarlySeconds = 0,
+  newGamePlus = false,
   onStart,
   onFinished,
 }: Props) {
@@ -23,8 +26,10 @@ export function IntroVideo({
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [phase, setPhase] = useState<'gate' | 'playing' | 'fade'>('gate')
   const [volume, setVolume] = useState(DEFAULT_VOL)
+  const [canSkip, setCanSkip] = useState(false)
   const finishedRef = useRef(false)
   const startedRef = useRef(false)
+  const lines = newGamePlus ? introEgoLinesPlus : introEgoLines
 
   useEffect(() => {
     const video = videoRef.current
@@ -68,6 +73,24 @@ export function IntroVideo({
     },
     [finish, onStart, volume],
   )
+
+  useEffect(() => {
+    if (phase !== 'playing') return
+    const id = window.setTimeout(() => setCanSkip(true), 1800)
+    return () => window.clearTimeout(id)
+  }, [phase])
+
+  useEffect(() => {
+    if (phase !== 'playing' || !canSkip) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.code === 'Space' || e.key === 'Escape') {
+        e.preventDefault()
+        finish()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [canSkip, finish, phase])
 
   useEffect(() => {
     const video = videoRef.current
@@ -117,7 +140,7 @@ export function IntroVideo({
       <div className="intro__dim" />
       <div className="intro__vignette" />
 
-      <EgoOverlay active={phase === 'playing'} lines={introEgoLines} />
+      <EgoOverlay active={phase === 'playing'} lines={lines} />
 
       {phase === 'gate' && (
         <button
@@ -127,9 +150,13 @@ export function IntroVideo({
           onClick={start}
         >
           <span className="intro__enter-rune">GODHOOD</span>
-          <span className="intro__enter-label">ENTER</span>
+          <span className="intro__enter-label">
+            {newGamePlus ? 'ENTER · NEW GAME+' : 'ENTER'}
+          </span>
         </button>
       )}
+
+      <SkipHint visible={phase === 'playing' && canSkip} onSkip={finish} />
 
       {phase !== 'fade' && (
         <VolumeControl value={volume} onChange={setVolume} />
