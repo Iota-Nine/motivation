@@ -79,10 +79,6 @@ export function EldenMenu({ onPlay }: Props) {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="elden-menu__eyebrow">THE PATH IS SINGULAR</p>
-            <p className="elden-menu__title">CLAIM THE THRONE</p>
-            <p className="elden-menu__subtitle">COPY ME. BECOME THE STRONGEST.</p>
-
             <ul className="elden-menu__list">
               <li>
                 <button

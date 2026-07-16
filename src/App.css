@@ -92,7 +92,7 @@ button {
 }
 
 .bg__img--menu {
-  object-position: 55% 35%;
+  object-position: 52% 28%;
 }
 
 @keyframes ken-burns {
@@ -109,8 +109,9 @@ button {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 45% at 72% 28%, rgba(245, 217, 138, 0.28) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 35% at 48% 42%, rgba(168, 132, 42, 0.12) 0%, transparent 60%);
+    radial-gradient(ellipse 60% 50% at 74% 22%, rgba(245, 217, 138, 0.38) 0%, transparent 58%),
+    radial-gradient(ellipse 42% 38% at 48% 38%, rgba(224, 192, 104, 0.16) 0%, transparent 62%),
+    radial-gradient(ellipse 30% 24% at 50% 48%, rgba(255, 236, 170, 0.1) 0%, transparent 70%);
   mix-blend-mode: screen;
   animation: bloom-pulse 7s ease-in-out infinite;
 }
@@ -131,13 +132,13 @@ button {
   background:
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.62) 0%,
-      rgba(0, 0, 0, 0.12) 28%,
-      rgba(0, 0, 0, 0.2) 52%,
-      rgba(0, 0, 0, 0.72) 78%,
-      #000 100%
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.05) 26%,
+      rgba(0, 0, 0, 0.12) 48%,
+      rgba(0, 0, 0, 0.58) 74%,
+      rgba(0, 0, 0, 0.92) 100%
     ),
-    radial-gradient(ellipse at 50% 40%, transparent 18%, rgba(0, 0, 0, 0.72) 100%);
+    radial-gradient(ellipse at 50% 36%, transparent 22%, rgba(0, 0, 0, 0.55) 100%);
   pointer-events: none;
 }
 
@@ -191,7 +192,7 @@ button {
   position: absolute;
   left: 50%;
   top: 48%;
-  width: min(72vw, 340px);
+  width: min(78vw, 420px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -202,21 +203,21 @@ button {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(224, 192, 104, 0.35);
+  border: 1px solid rgba(224, 192, 104, 0.45);
   box-shadow:
-    0 0 24px rgba(224, 192, 104, 0.2),
-    inset 0 0 28px rgba(245, 217, 138, 0.08);
+    0 0 36px rgba(224, 192, 104, 0.28),
+    inset 0 0 36px rgba(245, 217, 138, 0.12);
 }
 
 .grace-seal__ring--outer {
   animation: seal-spin 48s linear infinite;
   border-style: dashed;
-  opacity: 0.55;
+  opacity: 0.7;
 }
 
 .grace-seal__ring--mid {
   inset: 12%;
-  border-color: rgba(245, 217, 138, 0.45);
+  border-color: rgba(245, 217, 138, 0.55);
   animation: seal-spin 32s linear infinite reverse;
 }
 
@@ -224,7 +225,7 @@ button {
   position: absolute;
   inset: 28%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245, 217, 138, 0.28) 0%, rgba(245, 217, 138, 0.06) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(245, 217, 138, 0.38) 0%, rgba(245, 217, 138, 0.1) 45%, transparent 72%);
   animation: core-breathe 4.5s ease-in-out infinite;
 }
 
@@ -425,17 +426,17 @@ button {
 
 .center--menu {
   justify-content: space-between;
-  gap: clamp(1rem, 4vh, 2.5rem);
+  gap: clamp(0.75rem, 3vh, 2rem);
   padding-top: clamp(0.5rem, 2vh, 1.5rem);
-  padding-bottom: clamp(1.5rem, 5vh, 3.5rem);
+  padding-bottom: clamp(1.25rem, 4.5vh, 3rem);
 }
 
 .hero-brand {
   position: relative;
   display: grid;
   place-items: center;
-  padding: clamp(2.5rem, 8vh, 4.5rem) 1rem;
-  margin-top: clamp(0.5rem, 3vh, 2rem);
+  padding: clamp(1.5rem, 6vh, 3.5rem) 1rem;
+  margin-top: clamp(0.25rem, 2vh, 1.25rem);
   animation: brand-rise 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -458,16 +459,16 @@ button {
   margin: 0;
   font-family: Cinzel, serif;
   font-weight: 900;
-  font-size: clamp(2.8rem, 11vw, 6.4rem);
-  letter-spacing: 0.22em;
-  line-height: 0.95;
+  font-size: clamp(3.2rem, 12.5vw, 7.2rem);
+  letter-spacing: 0.2em;
+  line-height: 0.92;
   color: #fff8e4;
-  text-indent: 0.22em;
+  text-indent: 0.2em;
   text-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.85),
-    0 0 28px rgba(245, 217, 138, 0.55),
-    0 0 72px rgba(168, 132, 42, 0.4),
-    0 0 120px rgba(224, 192, 104, 0.2);
+    0 2px 4px rgba(0, 0, 0, 0.9),
+    0 0 32px rgba(245, 217, 138, 0.65),
+    0 0 80px rgba(168, 132, 42, 0.5),
+    0 0 140px rgba(224, 192, 104, 0.28);
   animation: brand-glow 5s ease-in-out infinite;
 }
 
@@ -492,12 +493,14 @@ button {
 .brand__line {
   position: relative;
   z-index: 1;
-  margin: 0.85rem 0 0;
-  font-family: Cinzel, serif;
-  font-size: clamp(0.62rem, 1.6vw, 0.78rem);
-  letter-spacing: 0.48em;
-  color: rgba(224, 192, 104, 0.78);
-  text-indent: 0.48em;
+  margin: 0.95rem 0 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  letter-spacing: 0.28em;
+  color: rgba(243, 232, 200, 0.82);
+  text-indent: 0.28em;
+  text-shadow: 0 0 20px rgba(224, 192, 104, 0.35);
 }
 
 /* ─── Elden menu — floating, no card ─── */
@@ -713,8 +716,8 @@ button {
 }
 
 .intro.is-gate .intro__video {
-  opacity: 0.5;
-  filter: brightness(0.32) saturate(0.85) contrast(1.05);
+  opacity: 0.72;
+  filter: brightness(0.48) saturate(1) contrast(1.08);
 }
 
 .intro__dim {

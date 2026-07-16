@@ -117,7 +117,7 @@ export default function App() {
           <div className="hero-brand">
             <GraceSeal />
             <h1 className="brand">GODHOOD</h1>
-            <p className="brand__line">EGO · THRONE · DOMINION</p>
+            <p className="brand__line">COPY ME. BECOME THE STRONGEST.</p>
           </div>
 
           <EldenMenu onPlay={handlePlay} />
