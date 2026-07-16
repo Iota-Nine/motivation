@@ -5,15 +5,21 @@ import { TextTicker } from './components/TextTicker'
 import { IntroVideo } from './components/IntroVideo'
 import { CinematicVideo } from './components/CinematicVideo'
 import { EldenMenu } from './components/EldenMenu'
+import { AwakeningScreen } from './components/AwakeningScreen'
+import { EndScreen } from './components/EndScreen'
 import { forceFullscreen } from './lib/fullscreen'
+import { getClearCount, isNewGamePlus, recordClear } from './lib/newGamePlus'
+import { unlockUiSounds } from './lib/uiSounds'
 import './App.css'
 
 const MENU_BG = '/assets/holograms/menu.png'
 
-type Phase = 'intro' | 'main' | 'outro' | 'end'
+type Phase = 'intro' | 'awakening' | 'main' | 'outro' | 'end'
 
 export default function App() {
   const [phase, setPhase] = useState<Phase>('intro')
+  const [newGamePlus] = useState(() => isNewGamePlus())
+  const [clears, setClears] = useState(() => getClearCount())
 
   const goToOutro = useCallback(() => {
     setPhase((p) => (p === 'main' ? 'outro' : p))
@@ -42,11 +48,16 @@ export default function App() {
   }, [phase])
 
   const handleIntroFinished = () => {
-    setPhase('main')
-    void play()
+    setPhase('awakening')
   }
 
+  const handleAwakeningFinished = useCallback(() => {
+    setPhase('main')
+    void play()
+  }, [play])
+
   const handleOutroFinished = () => {
+    setClears(recordClear())
     setPhase('end')
   }
 
@@ -66,10 +77,19 @@ export default function App() {
         <IntroVideo
           src="/assets/intro.mp4"
           cutEarlySeconds={12}
+          newGamePlus={newGamePlus}
           onStart={() => {
             void unlock()
+            void unlockUiSounds()
           }}
           onFinished={handleIntroFinished}
+        />
+      )}
+
+      {phase === 'awakening' && (
+        <AwakeningScreen
+          newGamePlus={newGamePlus}
+          onFinished={handleAwakeningFinished}
         />
       )}
 
@@ -79,18 +99,12 @@ export default function App() {
           narratorSrc="/assets/narrator.mp3"
           autoPlay
           cutEarlySeconds={8}
+          newGamePlus={newGamePlus}
           onFinished={handleOutroFinished}
         />
       )}
 
-      {phase === 'end' && (
-        <div className="the-end">
-          <button type="button" className="the-end__btn" onClick={restart}>
-            <span className="the-end__title">THE END</span>
-            <span className="the-end__sub">GODHOOD</span>
-          </button>
-        </div>
-      )}
+      {phase === 'end' && <EndScreen clears={clears} onRestart={restart} />}
 
       <div
         className={`main-shell ${phase === 'main' ? 'is-visible' : ''} ${phase === 'outro' ? 'is-exit' : ''}`}
@@ -109,7 +123,7 @@ export default function App() {
         </header>
 
         <main className="center center--menu">
-          <EldenMenu onPlay={handlePlay} />
+          <EldenMenu onPlay={handlePlay} newGamePlus={newGamePlus} />
         </main>
 
         <TextTicker reverse />
