@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { forceFullscreen } from '../lib/fullscreen'
 import { VolumeControl } from './VolumeControl'
 import { EgoOverlay } from './EgoOverlay'
+import { GraceSeal } from './GraceSeal'
 import { introEgoLines } from '../data/egoLines'
 
 const DEFAULT_VOL = 0.28
@@ -52,7 +53,6 @@ export function IntroVideo({
       if (!video || startedRef.current) return
       startedRef.current = true
 
-      // Sync call in the click stack — do not await before this
       forceFullscreen(rootRef.current ?? video)
 
       onStart?.()
@@ -126,7 +126,9 @@ export function IntroVideo({
           onPointerDown={start}
           onClick={start}
         >
+          <GraceSeal />
           <span className="intro__enter-rune">GODHOOD</span>
+          <span className="intro__enter-tag">TOUCH THE GRACE</span>
           <span className="intro__enter-label">ENTER</span>
         </button>
       )}

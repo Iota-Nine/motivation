@@ -5,6 +5,8 @@ import { TextTicker } from './components/TextTicker'
 import { IntroVideo } from './components/IntroVideo'
 import { CinematicVideo } from './components/CinematicVideo'
 import { EldenMenu } from './components/EldenMenu'
+import { GraceField } from './components/GraceField'
+import { GraceSeal } from './components/GraceSeal'
 import { forceFullscreen } from './lib/fullscreen'
 import './App.css'
 
@@ -85,9 +87,10 @@ export default function App() {
 
       {phase === 'end' && (
         <div className="the-end">
+          <GraceField />
           <button type="button" className="the-end__btn" onClick={restart}>
             <span className="the-end__title">THE END</span>
-            <span className="the-end__sub">GODHOOD</span>
+            <span className="the-end__sub">GODHOOD · REIGN AGAIN</span>
           </button>
         </div>
       )}
@@ -97,18 +100,26 @@ export default function App() {
       >
         <div className="bg">
           <img src={MENU_BG} alt="" className="bg__img is-active bg__img--menu" />
+          <div className="bg__bloom" />
           <div className="bg__shade" />
           <div className="bg__grain" />
+          <GraceField />
         </div>
 
         <TextTicker />
 
         <header className="topbar">
-          <h1 className="brand">GODHOOD</h1>
+          <p className="topbar__tag">VERTIX PROTOCOL</p>
           <AudioDock playing={playing} missing={missing} onToggle={toggle} />
         </header>
 
         <main className="center center--menu">
+          <div className="hero-brand">
+            <GraceSeal />
+            <h1 className="brand">GODHOOD</h1>
+            <p className="brand__line">EGO · THRONE · DOMINION</p>
+          </div>
+
           <EldenMenu onPlay={handlePlay} />
         </main>
 

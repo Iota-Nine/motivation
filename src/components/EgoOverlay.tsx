@@ -20,7 +20,6 @@ export function EgoOverlay({ active, lines, intervalMs = 7500 }: Props) {
 
     const id = window.setInterval(() => {
       setIndex((i) => {
-        // Never loop — stop on the last line so nothing repeats
         if (i >= lines.length - 1) return i
         return i + 1
       })
@@ -36,16 +35,18 @@ export function EgoOverlay({ active, lines, intervalMs = 7500 }: Props) {
   return (
     <div className="ego-overlay" aria-live="polite">
       <AnimatePresence mode="wait">
-        <motion.p
+        <motion.div
           key={line}
-          className="ego-overlay__text"
-          initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          className="ego-overlay__frame"
+          initial={{ opacity: 0, y: 18, filter: 'blur(10px)', scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
+          exit={{ opacity: 0, y: -14, filter: 'blur(8px)', scale: 1.02 }}
+          transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
         >
-          {line}
-        </motion.p>
+          <span className="ego-overlay__ornament" aria-hidden />
+          <p className="ego-overlay__text">{line}</p>
+          <span className="ego-overlay__ornament ego-overlay__ornament--flip" aria-hidden />
+        </motion.div>
       </AnimatePresence>
     </div>
   )
