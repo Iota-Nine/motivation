@@ -1,7 +1,7 @@
 export const manifesto = {
   kicker: 'THE STANDARD',
   title: 'Ego is not noise.\nIt is architecture.',
-  body: 'GODHOOD is a cinematic protocol for self-belief. Enter. Absorb. Copy the fire. Become the strongest version of yourself — then surpass it.',
+  body: 'In the realm of GODHOOD, belief is law and Vertix is the first flame. Enter the gate. Absorb the throne. Copy the fire. Become the strongest — then surpass the mirror.',
   lines: [
     'Believe first. Prove it after.',
     'Own your image or the world owns you.',
@@ -33,10 +33,10 @@ export const protocolSteps = [
 ]
 
 export const worldSignals = [
-  { label: 'MODE', value: 'CINEMATIC' },
-  { label: 'ERA', value: 'VERTIX' },
+  { label: 'REALM', value: 'GODHOOD' },
+  { label: 'ERA', value: 'III · ASCENSION' },
   { label: 'LAW', value: 'EGO FIRST' },
-  { label: 'STATUS', value: 'ONLINE' },
+  { label: 'FLAME', value: 'VERTIX' },
 ]
 
 export const systemsCopy = [
