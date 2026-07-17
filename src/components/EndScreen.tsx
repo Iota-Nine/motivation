@@ -66,7 +66,7 @@ export function EndScreen({ clears, onRestart }: Props) {
           </button>
         </div>
         {shareNote && <p className="the-end__share-note">{shareNote}</p>}
-        <p className="the-end__foot">VERTIX PROTOCOL · COPY ME</p>
+        <p className="the-end__foot">THE REALM REMEMBERS · VERTIX PROTOCOL</p>
       </div>
     </div>
   )
