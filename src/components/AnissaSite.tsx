@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { motion } from 'framer-motion'
 import {
   anissaClutches,
   anissaFacts,
@@ -8,7 +9,6 @@ import {
   anissaPalmares,
   anissaProfile,
   anissaQuotes,
-  anissaStats,
 } from '../data/anissa'
 import { playUiSound } from '../lib/uiSounds'
 
@@ -16,10 +16,20 @@ type Props = {
   onReplay: () => void
 }
 
+const HERO_IMG = '/assets/holograms/menu.png'
+
+const fade = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.25 },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+}
+
 export function AnissaSite({ onReplay }: Props) {
   useEffect(() => {
     document.documentElement.classList.add('is-anissa-site')
     document.body.classList.add('is-anissa-site')
+    window.scrollTo(0, 0)
     return () => {
       document.documentElement.classList.remove('is-anissa-site')
       document.body.classList.remove('is-anissa-site')
@@ -31,158 +41,150 @@ export function AnissaSite({ onReplay }: Props) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  return (
-    <div className="anissa-site">
-      <div className="anissa-site__bg" aria-hidden>
-        <div className="anissa-site__glow anissa-site__glow--a" />
-        <div className="anissa-site__glow anissa-site__glow--b" />
-        <div className="anissa-site__grain" />
-      </div>
+  const replay = () => {
+    playUiSound('confirm')
+    onReplay()
+  }
 
-      <header className="anissa-top">
-        <div className="anissa-top__brand">
-          <span>GODHOOD</span>
-          <strong>ANISSA</strong>
-        </div>
-        <nav className="anissa-top__nav" aria-label="Anissa site">
+  return (
+    <div className="anissa">
+      <header className="anissa__nav">
+        <button type="button" className="anissa__logo" onClick={() => scrollTo('top')}>
+          ANISSA
+        </button>
+        <nav className="anissa__links" aria-label="Anissa">
           {anissaNav.map((item) => (
             <button key={item.id} type="button" onClick={() => scrollTo(item.id)}>
               {item.label}
             </button>
           ))}
         </nav>
-        <button
-          type="button"
-          className="anissa-top__replay"
-          onClick={() => {
-            playUiSound('confirm')
-            onReplay()
-          }}
-        >
-          REPLAY GODHOOD
+        <button type="button" className="anissa__ghost" onClick={replay}>
+          Replay
         </button>
       </header>
 
-      <section className="anissa-hero">
-        <p className="anissa-hero__kicker">THE LIVING STANDARD · VERTIX INCARNATE</p>
-        <h1 className="anissa-hero__name">{anissaProfile.name}</h1>
-        <p className="anissa-hero__title">{anissaProfile.title}</p>
-        <p className="anissa-hero__tag">{anissaProfile.tagline}</p>
-        <div className="anissa-hero__stats">
-          {anissaStats.map((stat) => (
-            <div key={stat.label} className="anissa-hero__stat">
-              <em>{stat.label}</em>
-              <span>{stat.value}</span>
-            </div>
-          ))}
-        </div>
-        <p className="anissa-hero__creed">{anissaProfile.creed}</p>
+      <section id="top" className="anissa-hero">
+        <img src={HERO_IMG} alt="" className="anissa-hero__media" />
+        <div className="anissa-hero__shade" />
+        <motion.div
+          className="anissa-hero__content"
+          initial={{ opacity: 0, y: 36 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="anissa-hero__brand">GODHOOD</p>
+          <h1 className="anissa-hero__name">ANISSA</h1>
+          <p className="anissa-hero__line">
+            The strongest. The most beautiful. The queen above every lobby.
+          </p>
+          <div className="anissa-hero__cta">
+            <button type="button" className="anissa__primary" onClick={() => scrollTo('about')}>
+              Enter her world
+            </button>
+            <button type="button" className="anissa__text-btn" onClick={() => scrollTo('palmares')}>
+              Immortal 3 →
+            </button>
+          </div>
+        </motion.div>
       </section>
 
-      <div className="anissa-marquee" aria-hidden>
-        <div className="anissa-marquee__track">
+      <div className="anissa-strip" aria-hidden>
+        <div className="anissa-strip__track">
           {[...anissaQuotes, ...anissaQuotes].map((q, i) => (
-            <span key={`${q}-${i}`}>
-              {q}
-              <i />
-            </span>
+            <span key={`${q}-${i}`}>{q}</span>
           ))}
         </div>
       </div>
 
-      <section id="about" className="anissa-section">
-        <p className="anissa-section__eyebrow">ABOUT</p>
-        <h2 className="anissa-section__title">Everything to know about Anissa</h2>
-        <p className="anissa-section__lead">{anissaProfile.bio}</p>
-        <div className="anissa-about-grid">
-          <article>
-            <h3>THE QUEEN</h3>
-            <p>
-              Beauty that silences rooms. Presence that rearranges hierarchies. Anissa does not
-              compete for attention — attention reports to her.
-            </p>
-          </article>
-          <article>
-            <h3>THE STRONGEST</h3>
-            <p>
-              Immortal 3 Valorant. Aim that looks unfair. Mental that never folds. She is not
-              &quot;good for a lobby.&quot; She is the reason the lobby exists.
-            </p>
-          </article>
-          <article>
-            <h3>THE MYTH</h3>
-            <p>
-              Alias Vertix. Face of GODHOOD. Proof that ego can be elegant, lethal, and absolute
-              at the same time.
-            </p>
-          </article>
-        </div>
-      </section>
+      <motion.section id="about" className="anissa-block" {...fade}>
+        <p className="anissa-block__label">About</p>
+        <h2 className="anissa-block__title">
+          Not a player.
+          <br />
+          The standard.
+        </h2>
+        <p className="anissa-block__text">{anissaProfile.bio}</p>
+        <p className="anissa-block__aside">{anissaProfile.creed}</p>
+      </motion.section>
 
-      <section id="palmares" className="anissa-section">
-        <p className="anissa-section__eyebrow">PALMARÈS</p>
-        <h2 className="anissa-section__title">Trophy room of a monarch</h2>
-        <ul className="anissa-palmares">
+      <motion.section id="palmares" className="anissa-block anissa-block--rank" {...fade}>
+        <p className="anissa-block__label">Palmarès</p>
+        <p className="anissa-rank__game">Valorant</p>
+        <h2 className="anissa-rank__big">Immortal 3</h2>
+        <p className="anissa-block__text anissa-block__text--narrow">
+          Peak of fear. Lobby opens, morale drops. Anissa does not climb ranks — ranks climb toward
+          her.
+        </p>
+        <ul className="anissa-rank__list">
           {anissaPalmares.map((item) => (
             <li key={item.game}>
-              <div>
-                <p className="anissa-palmares__game">{item.game}</p>
-                <p className="anissa-palmares__rank">{item.rank}</p>
-              </div>
-              <p className="anissa-palmares__note">{item.note}</p>
+              <span>{item.game}</span>
+              <strong>{item.rank}</strong>
             </li>
           ))}
         </ul>
-      </section>
+      </motion.section>
 
-      <section id="clutches" className="anissa-section">
-        <p className="anissa-section__eyebrow">CLUTCH ARCHIVE</p>
-        <h2 className="anissa-section__title">Moments that rewrote the match</h2>
-        <div className="anissa-clutches">
+      <motion.section id="clutches" className="anissa-block" {...fade}>
+        <p className="anissa-block__label">Clutches</p>
+        <h2 className="anissa-block__title">Moments that ended arguments</h2>
+        <ol className="anissa-story">
           {anissaClutches.map((clutch) => (
-            <article key={clutch.id} className="anissa-clutch">
-              <div className="anissa-clutch__meta">
+            <li key={clutch.id}>
+              <div className="anissa-story__index">
                 <span>{clutch.id}</span>
                 <em>{clutch.game}</em>
               </div>
               <h3>{clutch.title}</h3>
               <p>{clutch.text}</p>
-            </article>
+            </li>
           ))}
-        </div>
-      </section>
+        </ol>
+      </motion.section>
 
-      <section id="games" className="anissa-section">
-        <p className="anissa-section__eyebrow">OTHER GAMES</p>
-        <h2 className="anissa-section__title">Same queen. Every server.</h2>
-        <div className="anissa-games">
+      <motion.section id="games" className="anissa-block anissa-block--split" {...fade}>
+        <div>
+          <p className="anissa-block__label">Games</p>
+          <h2 className="anissa-block__title">
+            Same crown.
+            <br />
+            Every server.
+          </h2>
+        </div>
+        <ul className="anissa-plain">
           {anissaOtherGames.map((game) => (
-            <article key={game.game}>
-              <p className="anissa-games__name">{game.game}</p>
-              <p className="anissa-games__role">{game.role}</p>
+            <li key={game.game}>
+              <div>
+                <h3>{game.game}</h3>
+                <span>{game.role}</span>
+              </div>
               <p>{game.text}</p>
-            </article>
+            </li>
           ))}
-        </div>
-      </section>
+        </ul>
+      </motion.section>
 
-      <section id="lore" className="anissa-section">
-        <p className="anissa-section__eyebrow">LORE ANECDOTES</p>
-        <h2 className="anissa-section__title">How Anissa became Vertix</h2>
-        <div className="anissa-lore">
-          {anissaLoreAnecdotes.map((item) => (
+      <motion.section id="lore" className="anissa-block" {...fade}>
+        <p className="anissa-block__label">Lore</p>
+        <h2 className="anissa-block__title">How Anissa became Vertix</h2>
+        <div className="anissa-lore-flow">
+          {anissaLoreAnecdotes.map((item, i) => (
             <article key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
             </article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="dossier" className="anissa-section anissa-section--dossier">
-        <p className="anissa-section__eyebrow">DOSSIER</p>
-        <h2 className="anissa-section__title">Official file</h2>
-        <dl className="anissa-dossier">
+      <motion.section id="dossier" className="anissa-block anissa-block--end" {...fade}>
+        <p className="anissa-block__label">Dossier</p>
+        <h2 className="anissa-block__title">Official file</h2>
+        <dl className="anissa-file">
           {anissaFacts.map((fact) => (
             <div key={fact.label}>
               <dt>{fact.label}</dt>
@@ -190,25 +192,19 @@ export function AnissaSite({ onReplay }: Props) {
             </div>
           ))}
         </dl>
-        <blockquote className="anissa-final">
-          Inferiors study her. Equals do not exist. Anissa remains the crown.
-        </blockquote>
-        <button
-          type="button"
-          className="anissa-final-cta"
-          onClick={() => {
-            playUiSound('confirm')
-            onReplay()
-          }}
-        >
-          RETURN TO GODHOOD
+        <p className="anissa-endline">
+          Inferiors study her.
+          <br />
+          Equals do not exist.
+        </p>
+        <button type="button" className="anissa__primary" onClick={replay}>
+          Return to GODHOOD
         </button>
-      </section>
+      </motion.section>
 
-      <footer className="anissa-foot">
-        <span>ANISSA / VERTIX / GODHOOD</span>
-        <span>IMMORTAL 3 · QUEEN PROTOCOL</span>
-        <span>ALL HAIL THE STRONGEST</span>
+      <footer className="anissa__footer">
+        <span>Anissa · Vertix · Godhood</span>
+        <span>Immortal 3</span>
       </footer>
     </div>
   )
