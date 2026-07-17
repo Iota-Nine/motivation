@@ -10,8 +10,18 @@ import {
 } from '../data/world'
 import { loreEntries, loreEras, loreIntro, loreLaws } from '../data/lore'
 import { playUiSound } from '../lib/uiSounds'
+import { DialogueScene } from './DialogueScene'
+import { AscensionPath } from './AscensionPath'
 
-export type Chapter = 'home' | 'lore' | 'manifesto' | 'protocol' | 'archive' | 'systems'
+export type Chapter =
+  | 'home'
+  | 'lore'
+  | 'dialogue'
+  | 'path'
+  | 'manifesto'
+  | 'protocol'
+  | 'archive'
+  | 'systems'
 
 type LoreTab = 'canon' | 'figures' | 'eras' | 'laws'
 
@@ -25,6 +35,8 @@ type Props = {
 const NAV: { id: Chapter; label: string }[] = [
   { id: 'home', label: 'HOME' },
   { id: 'lore', label: 'LORE' },
+  { id: 'dialogue', label: 'DIALOGUE' },
+  { id: 'path', label: 'PATH' },
   { id: 'manifesto', label: 'MANIFESTO' },
   { id: 'protocol', label: 'PROTOCOL' },
   { id: 'archive', label: 'ARCHIVE' },
@@ -96,7 +108,7 @@ export function WorldHub({ onPlay, newGamePlus = false, chapter, onChapter }: Pr
         if (e.key === 'ArrowDown') {
           e.preventDefault()
           setSelected((s) => {
-            const n = (s + 1) % 3
+            const n = (s + 1) % 5
             playUiSound('hover')
             return n
           })
@@ -105,7 +117,7 @@ export function WorldHub({ onPlay, newGamePlus = false, chapter, onChapter }: Pr
         if (e.key === 'ArrowUp') {
           e.preventDefault()
           setSelected((s) => {
-            const n = (s + 2) % 3
+            const n = (s + 4) % 5
             playUiSound('hover')
             return n
           })
@@ -114,8 +126,10 @@ export function WorldHub({ onPlay, newGamePlus = false, chapter, onChapter }: Pr
         if (e.key === 'Enter' || e.code === 'Space') {
           e.preventDefault()
           if (selected === 0) play()
-          else if (selected === 1) setChapter('lore')
-          else flashDeny('QUIT IS FOR THE WEAK. COPY ME INSTEAD.')
+          else if (selected === 1) setChapter('dialogue')
+          else if (selected === 2) setChapter('path')
+          else if (selected === 3) setChapter('lore')
+          else flashDeny('QUIT IS FOR THE WEAK. COPY ANISSA INSTEAD.')
         }
         return
       }
@@ -159,8 +173,8 @@ export function WorldHub({ onPlay, newGamePlus = false, chapter, onChapter }: Pr
         <h2 className="world-hub__brand">GODHOOD</h2>
         <p className="world-hub__tag">
           {newGamePlus
-            ? 'Surpass the standard. Rebuild the throne.'
-            : 'A sealed realm of ego, throne, and ascent.'}
+            ? 'Surpass Anissa. Rebuild the throne.'
+            : 'Anissa rules. Vertix ascends.'}
         </p>
 
         <div className="world-hub__signals">
@@ -192,24 +206,46 @@ export function WorldHub({ onPlay, newGamePlus = false, chapter, onChapter }: Pr
               setSelected(1)
               playUiSound('hover')
             }}
+            onClick={() => setChapter('dialogue')}
+          >
+            THRONE DIALOGUE
+          </button>
+          <button
+            type="button"
+            className={`world-hub__ghost ${selected === 2 ? 'is-active' : ''}`}
+            onMouseEnter={() => {
+              setSelected(2)
+              playUiSound('hover')
+            }}
+            onClick={() => setChapter('path')}
+          >
+            ASCENSION PATH
+          </button>
+          <button
+            type="button"
+            className={`world-hub__ghost ${selected === 3 ? 'is-active' : ''}`}
+            onMouseEnter={() => {
+              setSelected(3)
+              playUiSound('hover')
+            }}
             onClick={() => setChapter('lore')}
           >
             READ THE LORE
           </button>
           <button
             type="button"
-            className={`world-hub__ghost world-hub__ghost--mute ${selected === 2 ? 'is-active' : ''}`}
+            className={`world-hub__ghost world-hub__ghost--mute ${selected === 4 ? 'is-active' : ''}`}
             onMouseEnter={() => {
-              setSelected(2)
+              setSelected(4)
               playUiSound('hover')
             }}
-            onClick={() => flashDeny('QUIT IS FOR THE WEAK. COPY ME INSTEAD.')}
+            onClick={() => flashDeny('QUIT IS FOR THE WEAK. COPY ANISSA INSTEAD.')}
           >
             QUIT
           </button>
         </div>
         {deny && <p className="world-hub__deny">{deny}</p>}
-        <p className="world-hub__hint">↑↓ ENTER · LORE · MANIFESTO · PROTOCOL</p>
+        <p className="world-hub__hint">↑↓ ENTER · DIALOGUE · PATH · LORE</p>
       </div>
 
       <nav className="world-nav" aria-label="Chapters">
@@ -345,6 +381,18 @@ export function WorldHub({ onPlay, newGamePlus = false, chapter, onChapter }: Pr
                     )}
                   </motion.div>
                 </AnimatePresence>
+              </div>
+            )}
+
+            {chapter === 'dialogue' && (
+              <div className="world-panel__body">
+                <DialogueScene onContinue={() => setChapter('path')} />
+              </div>
+            )}
+
+            {chapter === 'path' && (
+              <div className="world-panel__body">
+                <AscensionPath onPlay={play} />
               </div>
             )}
 
