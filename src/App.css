@@ -1416,6 +1416,14 @@ button {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
+.world-panel--scroll {
+  max-height: min(58dvh, 520px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 39, 0.45) transparent;
+}
+
 .world-panel__head {
   display: flex;
   align-items: center;
@@ -1689,4 +1697,116 @@ button {
   .world-hub {
     animation: none !important;
   }
+}
+
+
+.lore-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  width: 100%;
+  margin-bottom: 0.35rem;
+}
+
+.lore-tabs__item {
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(244, 238, 248, 0.55);
+  padding: 0.45rem 0.65rem;
+  font-family: Syne, sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.lore-tabs__item:hover,
+.lore-tabs__item.is-active {
+  color: #f8efd0;
+  border-color: rgba(201, 162, 39, 0.5);
+  background: rgba(201, 162, 39, 0.1);
+}
+
+.lore-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.lore-era-strip {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.lore-era-strip li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid rgba(201, 162, 39, 0.14);
+  font-family: Syne, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(244, 238, 248, 0.55);
+}
+
+.lore-era-strip strong {
+  font-family: Cinzel, serif;
+  font-weight: 500;
+  color: rgba(243, 230, 192, 0.9);
+  letter-spacing: 0.1em;
+}
+
+.lore-laws {
+  list-style: none;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.lore-laws__item {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.12);
+}
+
+.lore-laws__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.lore-laws__head span {
+  font-family: Cinzel, serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+.lore-laws__head strong {
+  font-family: Syne, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #fff;
+}
+
+.lore-laws__item p {
+  margin: 0;
+  font-family: Syne, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--mist);
 }
