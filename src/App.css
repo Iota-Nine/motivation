@@ -2513,8 +2513,17 @@ body.is-anissa-site {
   background:
     radial-gradient(ellipse at 30% 40%, rgba(168, 85, 247, 0.22), transparent 50%),
     radial-gradient(ellipse at 70% 60%, rgba(201, 162, 39, 0.18), transparent 45%);
-  animation: ambient-drift 14s ease-in-out infinite alternate;
+  animation: epilogue-drift 14s ease-in-out infinite alternate;
   pointer-events: none;
+}
+
+@keyframes epilogue-drift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, 1%, 0) scale(1.05);
+  }
 }
 
 .epilogue__panel {
