@@ -1,9 +1,9 @@
 export const anissaProfile = {
   name: 'ANISSA',
-  title: 'Queen of Everything',
-  alias: 'VERTIX',
+  title: 'Master of the World of Ego',
+  alias: 'QUEEN OF EVERYTHING',
   tagline: 'The strongest. The most beautiful. Above every lobby.',
-  bio: 'Anissa is not a player. She is the standard. GODHOOD was written from her shadow — the living proof that ego, beauty, aim, and dominance can share one crown. When others hope, she decides. When others clutch once, she makes history.',
+  bio: 'Anissa is not a player. She is the standard. GODHOOD was written from her shadow — the living proof that ego, beauty, aim, and dominance can share one crown. Vertix studies that crown. When others hope, she decides. When others clutch once, she makes history.',
   creed: 'Copy me. Become the strongest. Then still lose to Anissa.',
 }
 

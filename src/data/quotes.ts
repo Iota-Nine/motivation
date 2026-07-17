@@ -58,24 +58,22 @@ export const quotes: Quote[] = [
 
 /** Endless ticker lines. Ego throne protocol. */
 export const tickerLines: string[] = [
-  'VERTIX. COPY ME',
+  'ANISSA · MASTER OF EGO',
+  'VERTIX · COPY THE QUEEN',
   'EGO ON. DOUBT OFF',
   'BECOME THE STRONGEST',
-  'A WORLD UNDER YOUR CONTROL',
+  'SILENCE · EGO · SHADOW · CROWN',
   'QUEEN ENERGY ONLY',
-  'RISE LIKE ME',
+  'TWO SUNS · ONE REALM',
   'BELIEVE FIRST. RULE AFTER',
   'THRONE MENTALITY',
   'NO SECOND PATH',
-  'SELF BELIEF OR NOTHING',
   'VERTIX DOES NOT FOLD',
   'TAKE THE CROWN',
-  'VERTIX WROTE THE FIRST LAW',
   'THE THRONE DOES NOT FORGIVE',
   'ERA III · ASCENSION ACTIVE',
   'GODHOOD REMEMBERS YOUR CLEAR',
   'COPY THE FIRE · BECOME THE FIRE',
-  'ONE PATH THROUGH THE GATE',
 ]
 
 export function getQuoteOfTheDay(date = new Date()): Quote {

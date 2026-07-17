@@ -52,8 +52,8 @@ export function EndScreen({ clears, onContinue }: Props) {
           }}
         >
           <span className="the-end__title">THE END</span>
-          <span className="the-end__sub">REVEAL THE QUEEN</span>
-          <span className="the-end__cta">PRESS TO ENTER ANISSA · FULL SITE</span>
+          <span className="the-end__sub">TWO SUNS AWAIT</span>
+          <span className="the-end__cta">PRESS FOR THE EPILOGUE · THEN ANISSA</span>
         </button>
 
         <div className="the-end__row">

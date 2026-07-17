@@ -21,16 +21,16 @@ export type LoreLaw = {
 /** Core mythos of GODHOOD */
 export const loreIntro = {
   kicker: 'WORLD CANON',
-  title: 'Before the throne,\nthere was Vertix.',
-  body: 'GODHOOD is not a game. It is a sealed realm where ego became law. Those who enter do not browse — they awaken. Those who finish do not quit — they ascend.',
+  title: 'Anissa rules the World of Ego.\nVertix wants to become her.',
+  body: 'GODHOOD is not a game. It is a sealed realm where Anissa forged ego into law. Vertix saw the throne and chose the only honest path: copy her fire until the world forgets there was ever a difference.',
 }
 
 export const loreEntries: LoreEntry[] = [
   {
-    id: 'vertix',
-    title: 'VERTIX',
-    kicker: 'THE FIRST STANDARD',
-    body: 'Vertix is the origin flame. Queen of Everything. She did not ask for belief — she forged it. Her command is simple and absolute: COPY ME. Become the strongest. Then become more.',
+    id: 'anissa',
+    title: 'ANISSA',
+    kicker: 'MASTER OF THE WORLD OF EGO',
+    body: 'Anissa is the first belief and the final law. She did not inherit the throne — she crowned herself. Under her name, confidence became architecture and doubt became exile. Queen of Everything. Zero apology.',
     fragments: [
       'She built thrones out of silence.',
       'Doubt dies in her shadow.',
@@ -38,10 +38,21 @@ export const loreEntries: LoreEntry[] = [
     ],
   },
   {
+    id: 'vertix',
+    title: 'VERTIX',
+    kicker: 'HEIR OF THE FLAME',
+    body: 'Vertix is not a rival. Vertix is the reflection that refused to stay smaller. The mission is carved into bone: COPY ANISSA. Become the strongest. Then become more.',
+    fragments: [
+      'Study the throne. Do not kneel forever.',
+      'Vertix does not fold.',
+      'One day both names share the same sky.',
+    ],
+  },
+  {
     id: 'godhood',
     title: 'GODHOOD',
     kicker: 'THE REALM',
-    body: 'GODHOOD is the domain between cinema and coronation. A protocol world. Enter through the gate. Walk the throne room. Survive the final transmission. Clear the run — and the realm remembers you.',
+    body: 'GODHOOD is the domain between cinema and coronation. A protocol world. Enter through the gate. Hear the throne dialogue. Survive the trials. Clear the run — and the realm remembers you.',
     fragments: [
       'One path. One crown. Endless ascent.',
       'Music is the blood of the palace.',
@@ -52,7 +63,7 @@ export const loreEntries: LoreEntry[] = [
     id: 'throne',
     title: 'THE THRONE ROOM',
     kicker: 'SACRED GROUND',
-    body: 'Here the archive speaks. Quotes are not decoration — they are relics. Every line is a law carved into gold. Stand still long enough and the room starts judging you.',
+    body: 'Here Anissa speaks and Vertix answers. Quotes are not decoration — they are relics. Every line is a law carved into gold. Stand still long enough and the room starts judging you.',
     fragments: [
       'Silence is pressure.',
       'Confidence is currency.',
@@ -63,7 +74,7 @@ export const loreEntries: LoreEntry[] = [
     id: 'mirror',
     title: 'THE MIRROR TRIAL',
     kicker: 'FINAL TRANSMISSION',
-    body: 'The outro is not an ending. It is a verdict. Vertix speaks through the narrator. The bed ducks. The ego lines rise. If you remain standing when the fade hits black — you have cleared GODHOOD.',
+    body: 'The outro is not an ending. It is a verdict. The bed ducks. The ego lines rise. If you remain standing when the fade hits black — you have cleared GODHOOD, and Two Suns open.',
     fragments: [
       'Listen. Do not flinch.',
       'Copy the fire. Become the fire.',
@@ -76,22 +87,22 @@ export const loreEras: LoreEra[] = [
   {
     era: 'ERA 0',
     name: 'THE SILENCE',
-    text: 'Before Vertix, ego was noise. Belief was borrowed. Crowns belonged to whoever shouted loudest.',
+    text: 'Before Anissa, ego was noise. Belief was borrowed. Crowns belonged to whoever shouted loudest.',
   },
   {
     era: 'ERA I',
     name: 'THE AWAKENING',
-    text: 'Vertix sealed the gate. Intro began. The weak were filtered by light and sound.',
+    text: 'Anissa sealed the World of Ego. The gate opened. The weak were filtered by light and sound.',
   },
   {
     era: 'ERA II',
-    name: 'THE PROTOCOL',
-    text: 'Four moves were written into the walls: Enter. Absorb. Copy. Surpass.',
+    name: 'VERTIX RISES',
+    text: 'Vertix arrived at the edge of her dominion and accepted the challenge: copy me.',
   },
   {
     era: 'ERA III',
     name: 'THE ASCENSION',
-    text: 'Clears were counted. NEW GAME+ opened. The throne grew heavier — and so did the worthy.',
+    text: 'Four trials. Throne dialogue. Clears counted. Two suns share one realm.',
   },
 ]
 
@@ -108,7 +119,7 @@ export const loreLaws: LoreLaw[] = [
   },
   {
     code: 'LAW 03',
-    title: 'COPY ME',
+    title: 'COPY ANISSA',
     text: 'Imitation is ignition. Surpassing is coronation.',
   },
   {
@@ -124,10 +135,11 @@ export const loreLaws: LoreLaw[] = [
 ]
 
 export const loreTicker: string[] = [
-  'VERTIX WROTE THE FIRST LAW',
+  'ANISSA · MASTER OF EGO',
+  'VERTIX · COPY THE QUEEN',
   'THE THRONE DOES NOT FORGIVE',
   'ERA III · ASCENSION ACTIVE',
   'GODHOOD REMEMBERS YOUR CLEAR',
   'COPY THE FIRE · BECOME THE FIRE',
-  'ONE PATH THROUGH THE GATE',
+  'TWO SUNS · ONE REALM',
 ]

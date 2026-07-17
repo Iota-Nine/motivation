@@ -11,6 +11,7 @@ import { AmbientField } from './components/AmbientField'
 import { CustomCursor } from './components/CustomCursor'
 import { StatusHud } from './components/StatusHud'
 import { WorldHub, type Chapter } from './components/WorldHub'
+import { Epilogue } from './components/Epilogue'
 import { forceFullscreen } from './lib/fullscreen'
 import { getClearCount, isNewGamePlus, recordClear } from './lib/newGamePlus'
 import { unlockUiSounds } from './lib/uiSounds'
@@ -18,7 +19,7 @@ import './App.css'
 
 const MENU_BG = '/assets/holograms/menu.png'
 
-type Phase = 'intro' | 'awakening' | 'main' | 'outro' | 'end' | 'anissa'
+type Phase = 'intro' | 'awakening' | 'main' | 'outro' | 'end' | 'epilogue' | 'anissa'
 
 export default function App() {
   const [phase, setPhase] = useState<Phase>('intro')
@@ -40,7 +41,7 @@ export default function App() {
   }, [phase, stop])
 
   useEffect(() => {
-    if (phase !== 'end' && phase !== 'anissa') return
+    if (phase !== 'end' && phase !== 'epilogue' && phase !== 'anissa') return
     const audio = new Audio('/assets/end.mp3')
     audio.loop = true
     audio.volume = phase === 'anissa' ? 0.4 : 0.55
@@ -83,6 +84,12 @@ export default function App() {
   const handlePlay = () => {
     stop()
     goToOutro()
+  }
+
+  const openEpilogue = () => {
+    forceFullscreen(document.documentElement)
+    setPhase('epilogue')
+    window.scrollTo(0, 0)
   }
 
   const openAnissaSite = () => {
@@ -131,7 +138,9 @@ export default function App() {
         />
       )}
 
-      {phase === 'end' && <EndScreen clears={clears} onContinue={openAnissaSite} />}
+      {phase === 'end' && <EndScreen clears={clears} onContinue={openEpilogue} />}
+
+      {phase === 'epilogue' && <Epilogue onContinue={openAnissaSite} />}
 
       {phase === 'anissa' && <AnissaSite onReplay={restart} />}
 
@@ -155,7 +164,7 @@ export default function App() {
 
         <header className="topbar topbar--site">
           <div className="topbar__brand-wrap">
-            <p className="topbar__mark">VERTIX</p>
+            <p className="topbar__mark">ANISSA · VERTIX</p>
             <h1 className="brand">GODHOOD</h1>
           </div>
           <StatusHud clears={clears} newGamePlus={newGamePlus} playing={playing} />
@@ -173,8 +182,8 @@ export default function App() {
 
         <footer className="site-footer">
           <span>GODHOOD / 2026</span>
-          <span>COPY ME · BECOME THE STRONGEST</span>
-          <span>BUILD 2.0</span>
+          <span>COPY ANISSA · BECOME THE STRONGEST</span>
+          <span>BUILD 2.1</span>
         </footer>
 
         <TextTicker reverse />
