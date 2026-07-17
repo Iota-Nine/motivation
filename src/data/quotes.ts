@@ -45,6 +45,15 @@ export const quotes: Quote[] = [
   {
     text: "You are the standard. Act like it.",
   },
+  {
+    text: "Soft minds stay followers. Sharp egos take thrones.",
+  },
+  {
+    text: "Make your presence expensive.",
+  },
+  {
+    text: "The mirror is not your enemy. Your hesitation is.",
+  },
 ]
 
 /** Endless ticker lines. Ego throne protocol. */
