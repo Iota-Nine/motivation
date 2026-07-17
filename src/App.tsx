@@ -6,6 +6,7 @@ import { IntroVideo } from './components/IntroVideo'
 import { CinematicVideo } from './components/CinematicVideo'
 import { AwakeningScreen } from './components/AwakeningScreen'
 import { EndScreen } from './components/EndScreen'
+import { AnissaSite } from './components/AnissaSite'
 import { AmbientField } from './components/AmbientField'
 import { CustomCursor } from './components/CustomCursor'
 import { StatusHud } from './components/StatusHud'
@@ -17,7 +18,7 @@ import './App.css'
 
 const MENU_BG = '/assets/holograms/menu.png'
 
-type Phase = 'intro' | 'awakening' | 'main' | 'outro' | 'end'
+type Phase = 'intro' | 'awakening' | 'main' | 'outro' | 'end' | 'anissa'
 
 export default function App() {
   const [phase, setPhase] = useState<Phase>('intro')
@@ -39,10 +40,10 @@ export default function App() {
   }, [phase, stop])
 
   useEffect(() => {
-    if (phase !== 'end') return
+    if (phase !== 'end' && phase !== 'anissa') return
     const audio = new Audio('/assets/end.mp3')
     audio.loop = true
-    audio.volume = 0.55
+    audio.volume = phase === 'anissa' ? 0.4 : 0.55
     void audio.play().catch(() => {
       /* blocked */
     })
@@ -84,13 +85,19 @@ export default function App() {
     goToOutro()
   }
 
+  const openAnissaSite = () => {
+    forceFullscreen(document.documentElement)
+    setPhase('anissa')
+    window.scrollTo(0, 0)
+  }
+
   const restart = () => {
     forceFullscreen(document.documentElement)
     window.location.reload()
   }
 
   return (
-    <div className="app">
+    <div className={`app ${phase === 'anissa' ? 'app--anissa' : ''}`}>
       <CustomCursor />
 
       {phase === 'intro' && (
@@ -124,7 +131,9 @@ export default function App() {
         />
       )}
 
-      {phase === 'end' && <EndScreen clears={clears} onRestart={restart} />}
+      {phase === 'end' && <EndScreen clears={clears} onContinue={openAnissaSite} />}
+
+      {phase === 'anissa' && <AnissaSite onReplay={restart} />}
 
       <div
         className={`main-shell ${phase === 'main' ? 'is-visible' : ''} ${phase === 'outro' ? 'is-exit' : ''}`}

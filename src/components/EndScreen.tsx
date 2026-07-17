@@ -3,19 +3,19 @@ import { playUiSound } from '../lib/uiSounds'
 
 type Props = {
   clears: number
-  onRestart: () => void
+  onContinue: () => void
 }
 
-const SHARE_TEXT = 'I entered GODHOOD. Copy me. Become the strongest.'
+const SHARE_TEXT = 'I entered GODHOOD and met the queen: Anissa. Copy her. Become the strongest.'
 
-export function EndScreen({ clears, onRestart }: Props) {
+export function EndScreen({ clears, onContinue }: Props) {
   const [shareNote, setShareNote] = useState<string | null>(null)
   const ngPlus = clears > 0
 
   const share = useCallback(async () => {
     playUiSound('select')
     const url = window.location.href
-    const payload = { title: 'GODHOOD', text: SHARE_TEXT, url }
+    const payload = { title: 'GODHOOD · ANISSA', text: SHARE_TEXT, url }
 
     try {
       if (navigator.share) {
@@ -48,16 +48,12 @@ export function EndScreen({ clears, onRestart }: Props) {
           className="the-end__btn"
           onClick={() => {
             playUiSound('confirm')
-            onRestart()
+            onContinue()
           }}
         >
           <span className="the-end__title">THE END</span>
-          <span className="the-end__sub">
-            {ngPlus ? 'NEW GAME+ UNLOCKED' : 'THRONE SECURED'}
-          </span>
-          <span className="the-end__cta">
-            {ngPlus ? 'PRESS TO CONTINUE · HARDER CROWN' : 'PRESS TO CONTINUE · NEW GAME+'}
-          </span>
+          <span className="the-end__sub">REVEAL THE QUEEN</span>
+          <span className="the-end__cta">PRESS TO ENTER ANISSA · FULL SITE</span>
         </button>
 
         <div className="the-end__row">
@@ -66,7 +62,7 @@ export function EndScreen({ clears, onRestart }: Props) {
           </button>
         </div>
         {shareNote && <p className="the-end__share-note">{shareNote}</p>}
-        <p className="the-end__foot">THE REALM REMEMBERS · VERTIX PROTOCOL</p>
+        <p className="the-end__foot">THE REALM OPENS · ALL HAIL ANISSA</p>
       </div>
     </div>
   )
