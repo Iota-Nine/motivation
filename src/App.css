@@ -1812,13 +1812,14 @@ button {
 }
 
 
-/* —— Anissa glory site (opens after THE END) —— */
+/* —— Anissa site (modern redesign) —— */
 html.is-anissa-site,
 html.is-anissa-site body,
 body.is-anissa-site {
   overflow: auto !important;
   height: auto !important;
   min-height: 100%;
+  background: #050507;
 }
 
 .app--anissa {
@@ -1826,513 +1827,548 @@ body.is-anissa-site {
   overflow: visible;
 }
 
-.anissa-site {
+.anissa {
   position: relative;
   z-index: 70;
   min-height: 100dvh;
-  color: #f7f1e8;
-  background: #07040c;
-  animation: anissa-in 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  color: #f4efe8;
+  background: #050507;
+  font-family: Syne, sans-serif;
 }
 
-@keyframes anissa-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.anissa-site__bg {
+.anissa__nav {
   position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse at 20% 10%, rgba(168, 85, 247, 0.22), transparent 42%),
-    radial-gradient(ellipse at 80% 0%, rgba(201, 162, 39, 0.16), transparent 35%),
-    linear-gradient(180deg, #120818 0%, #07040c 48%, #050308 100%);
-}
-
-.anissa-site__glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(50px);
-  opacity: 0.4;
-}
-
-.anissa-site__glow--a {
-  width: 340px;
-  height: 340px;
-  top: 8%;
-  right: 5%;
-  background: rgba(168, 85, 247, 0.35);
-  animation: orb-float 12s ease-in-out infinite;
-}
-
-.anissa-site__glow--b {
-  width: 280px;
-  height: 280px;
-  bottom: 18%;
-  left: 8%;
-  background: rgba(201, 162, 39, 0.22);
-  animation: orb-float 14s ease-in-out infinite reverse;
-}
-
-.anissa-site__grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.anissa-top {
-  position: sticky;
   top: 0;
-  z-index: 20;
+  left: 0;
+  right: 0;
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
-  border-bottom: 1px solid rgba(201, 162, 39, 0.18);
-  background: rgba(7, 4, 12, 0.78);
-  backdrop-filter: blur(14px);
+  padding: 1rem clamp(1rem, 4vw, 2.5rem);
+  background: linear-gradient(180deg, rgba(5, 5, 7, 0.82), rgba(5, 5, 7, 0));
+  backdrop-filter: blur(8px);
 }
 
-.anissa-top__brand {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.anissa-top__brand span {
-  font-family: Syne, sans-serif;
-  font-size: 0.5rem;
-  font-weight: 700;
-  letter-spacing: 0.35em;
-  color: rgba(201, 162, 39, 0.7);
-}
-
-.anissa-top__brand strong {
-  font-family: Cinzel, serif;
-  font-size: 1rem;
-  letter-spacing: 0.28em;
-}
-
-.anissa-top__nav {
-  display: none;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.anissa-top__nav button {
+.anissa__logo {
   border: 0;
   background: transparent;
-  color: rgba(247, 241, 232, 0.55);
-  padding: 0.45rem 0.55rem;
-  font-family: Syne, sans-serif;
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  color: #fff;
+  font-family: Cinzel, serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.32em;
   cursor: pointer;
 }
 
-.anissa-top__nav button:hover {
+.anissa__links {
+  display: none;
+  gap: 0.15rem;
+}
+
+.anissa__links button {
+  border: 0;
+  background: transparent;
+  color: rgba(244, 239, 232, 0.55);
+  padding: 0.4rem 0.65rem;
+  font-family: Syne, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.anissa__links button:hover {
   color: #fff;
 }
 
-.anissa-top__replay {
-  border: 1px solid rgba(201, 162, 39, 0.35);
-  background: rgba(0, 0, 0, 0.35);
-  color: #f3e6c0;
-  padding: 0.55rem 0.8rem;
+.anissa__ghost {
+  border: 1px solid rgba(244, 239, 232, 0.2);
+  background: transparent;
+  color: rgba(244, 239, 232, 0.8);
+  padding: 0.55rem 0.9rem;
   font-family: Syne, sans-serif;
-  font-size: 0.55rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.anissa__ghost:hover {
+  border-color: rgba(244, 239, 232, 0.55);
+  color: #fff;
+}
+
+.anissa__primary {
+  border: 0;
+  background: #f4efe8;
+  color: #0b0a0d;
+  padding: 0.95rem 1.35rem;
+  font-family: Syne, sans-serif;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.anissa__primary:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.anissa__text-btn {
+  border: 0;
+  background: transparent;
+  color: rgba(244, 239, 232, 0.78);
+  padding: 0.75rem 0.25rem;
+  font-family: Syne, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   cursor: pointer;
 }
 
-.anissa-top__replay:hover {
-  border-color: var(--gold);
+.anissa__text-btn:hover {
   color: #fff;
 }
 
-@media (min-width: 900px) {
-  .anissa-top__nav {
+@media (min-width: 880px) {
+  .anissa__links {
     display: flex;
   }
 }
 
 .anissa-hero {
-  padding: clamp(2.5rem, 8vw, 5.5rem) clamp(1rem, 4vw, 2.5rem) 2.5rem;
-  max-width: 1100px;
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
 }
 
-.anissa-hero__kicker {
-  margin: 0 0 0.75rem;
-  font-family: Syne, sans-serif;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.34em;
-  color: rgba(201, 162, 39, 0.85);
+.anissa-hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.04);
+  animation: anissa-ken 18s ease-in-out infinite alternate;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+@keyframes anissa-ken {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+.anissa-hero__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 7, 0.25) 0%, rgba(5, 5, 7, 0.15) 35%, rgba(5, 5, 7, 0.88) 78%, #050507 100%),
+    linear-gradient(90deg, rgba(5, 5, 7, 0.55) 0%, transparent 55%);
+}
+
+.anissa-hero__content {
+  position: relative;
+  z-index: 1;
+  padding: 7rem clamp(1.1rem, 5vw, 3rem) 3.5rem;
+  max-width: 920px;
+}
+
+.anissa-hero__brand {
+  margin: 0 0 0.85rem;
+  font-family: Cinzel, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  color: rgba(244, 239, 232, 0.7);
 }
 
 .anissa-hero__name {
   margin: 0;
   font-family: Cinzel, serif;
   font-weight: 700;
-  font-size: clamp(3.4rem, 14vw, 8rem);
-  letter-spacing: 0.18em;
-  line-height: 0.9;
-  color: #fff;
-  text-shadow:
-    0 0 36px rgba(168, 85, 247, 0.45),
-    0 0 70px rgba(201, 162, 39, 0.2);
-}
-
-.anissa-hero__title {
-  margin: 1rem 0 0.5rem;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(1.6rem, 5vw, 2.8rem);
+  font-size: clamp(4rem, 16vw, 9.5rem);
   letter-spacing: 0.12em;
-  color: #f3e6c0;
+  line-height: 0.88;
+  color: #fff;
 }
 
-.anissa-hero__tag {
-  margin: 0;
-  max-width: 28ch;
+.anissa-hero__line {
+  margin: 1.25rem 0 0;
+  max-width: 22ch;
   font-family: Syne, sans-serif;
-  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  font-size: clamp(1.05rem, 2.6vw, 1.35rem);
   font-weight: 500;
-  line-height: 1.45;
-  color: rgba(247, 241, 232, 0.78);
+  line-height: 1.4;
+  color: rgba(244, 239, 232, 0.82);
 }
 
-.anissa-hero__stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem;
-  margin-top: 1.6rem;
-  max-width: 520px;
-}
-
-@media (min-width: 720px) {
-  .anissa-hero__stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.anissa-hero__stat {
+.anissa-hero__cta {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.7rem 0.75rem;
-  border: 1px solid rgba(201, 162, 39, 0.22);
-  background: rgba(0, 0, 0, 0.28);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-.anissa-hero__stat em {
-  font-style: normal;
-  font-family: Syne, sans-serif;
-  font-size: 0.52rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: rgba(201, 162, 39, 0.75);
-}
-
-.anissa-hero__stat span {
-  font-family: Cinzel, serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  color: #fff;
-}
-
-.anissa-hero__creed {
-  margin: 1.4rem 0 0;
-  font-family: Cinzel, serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: rgba(243, 230, 192, 0.8);
-}
-
-.anissa-marquee {
+.anissa-strip {
   overflow: hidden;
-  border-block: 1px solid rgba(201, 162, 39, 0.18);
-  background: rgba(0, 0, 0, 0.35);
-  padding: 0.7rem 0;
+  border-block: 1px solid rgba(244, 239, 232, 0.08);
+  padding: 1rem 0;
+  background: #050507;
 }
 
-.anissa-marquee__track {
+.anissa-strip__track {
   display: flex;
   width: max-content;
-  gap: 1.5rem;
-  animation: ticker-run 55s linear infinite;
+  gap: 3rem;
+  animation: ticker-run 60s linear infinite;
 }
 
-.anissa-marquee__track span {
-  display: inline-flex;
-  align-items: center;
-  gap: 1.5rem;
+.anissa-strip__track span {
   white-space: nowrap;
   font-family: Syne, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: rgba(243, 230, 192, 0.75);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(244, 239, 232, 0.45);
 }
 
-.anissa-marquee__track i {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--violet);
-  box-shadow: 0 0 10px var(--violet);
+.anissa-block {
+  padding: clamp(4rem, 10vw, 7rem) clamp(1.1rem, 5vw, 3rem);
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
-.anissa-section {
-  padding: clamp(2.4rem, 7vw, 4.5rem) clamp(1rem, 4vw, 2.5rem);
-  max-width: 1100px;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.1);
-}
-
-.anissa-section__eyebrow {
-  margin: 0 0 0.55rem;
-  font-family: Syne, sans-serif;
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.32em;
-  color: rgba(201, 162, 39, 0.8);
-}
-
-.anissa-section__title {
+.anissa-block__label {
   margin: 0 0 1rem;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-family: Syne, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 232, 0.42);
+}
+
+.anissa-block__title {
+  margin: 0 0 1.4rem;
+  font-family: Cinzel, serif;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 6.5vw, 4.2rem);
   letter-spacing: 0.04em;
-  line-height: 1;
+  line-height: 1.05;
   color: #fff;
 }
 
-.anissa-section__lead {
-  margin: 0 0 1.5rem;
-  max-width: 48ch;
-  font-family: Syne, sans-serif;
-  font-size: 1rem;
+.anissa-block__text {
+  margin: 0;
+  max-width: 38ch;
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
   font-weight: 500;
-  line-height: 1.6;
-  color: rgba(247, 241, 232, 0.78);
+  line-height: 1.65;
+  color: rgba(244, 239, 232, 0.72);
 }
 
-.anissa-about-grid {
-  display: grid;
-  gap: 1rem;
+.anissa-block__text--narrow {
+  max-width: 32ch;
 }
 
-@media (min-width: 800px) {
-  .anissa-about-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.anissa-about-grid article,
-.anissa-games article,
-.anissa-lore article,
-.anissa-clutch {
-  padding: 1.1rem 1rem;
-  border: 1px solid rgba(201, 162, 39, 0.18);
-  background: rgba(0, 0, 0, 0.28);
-}
-
-.anissa-about-grid h3,
-.anissa-lore h3,
-.anissa-clutch h3 {
-  margin: 0 0 0.55rem;
+.anissa-block__aside {
+  margin: 2rem 0 0;
+  max-width: 28ch;
   font-family: Cinzel, serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.14em;
-  color: #f3e6c0;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  color: rgba(244, 239, 232, 0.9);
 }
 
-.anissa-about-grid p,
-.anissa-games p,
-.anissa-lore p,
-.anissa-clutch p,
-.anissa-palmares__note {
+.anissa-block--rank {
+  text-align: left;
+}
+
+.anissa-rank__game {
   margin: 0;
   font-family: Syne, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  line-height: 1.55;
-  color: rgba(247, 241, 232, 0.74);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 232, 0.5);
 }
 
-.anissa-palmares {
+.anissa-rank__big {
+  margin: 0.35rem 0 1.25rem;
+  font-family: Cinzel, serif;
+  font-weight: 700;
+  font-size: clamp(3.2rem, 12vw, 7rem);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  color: #fff;
+  background: linear-gradient(120deg, #fff 20%, #d8c089 55%, #fff 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.anissa-rank__list {
   list-style: none;
-  margin: 0;
+  margin: 2.5rem 0 0;
   padding: 0;
   display: grid;
-  gap: 0.85rem;
+  gap: 0;
+  max-width: 560px;
 }
 
-.anissa-palmares li {
-  display: grid;
-  gap: 0.65rem;
-  padding: 1rem;
-  border: 1px solid rgba(201, 162, 39, 0.2);
-  background: linear-gradient(135deg, rgba(201, 162, 39, 0.08), rgba(0, 0, 0, 0.35));
-}
-
-@media (min-width: 720px) {
-  .anissa-palmares li {
-    grid-template-columns: 220px 1fr;
-    align-items: center;
-  }
-}
-
-.anissa-palmares__game {
-  margin: 0;
-  font-family: Syne, sans-serif;
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: rgba(201, 162, 39, 0.75);
-}
-
-.anissa-palmares__rank {
-  margin: 0.25rem 0 0;
-  font-family: Cinzel, serif;
-  font-size: 1.15rem;
-  letter-spacing: 0.12em;
-  color: #fff;
-}
-
-.anissa-clutches,
-.anissa-games,
-.anissa-lore {
-  display: grid;
-  gap: 0.85rem;
-}
-
-@media (min-width: 860px) {
-  .anissa-clutches,
-  .anissa-games,
-  .anissa-lore {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.anissa-clutch__meta {
+.anissa-rank__list li {
   display: flex;
   justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.55rem;
-  font-family: Syne, sans-serif;
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: rgba(201, 162, 39, 0.75);
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(244, 239, 232, 0.12);
+  font-size: 0.92rem;
 }
 
-.anissa-clutch__meta em {
-  font-style: normal;
-  color: rgba(247, 241, 232, 0.45);
-}
-
-.anissa-games__name {
-  margin: 0 0 0.2rem !important;
-  font-family: Cinzel, serif !important;
-  font-size: 0.95rem !important;
-  letter-spacing: 0.12em;
-  color: #fff !important;
-}
-
-.anissa-games__role {
-  margin: 0 0 0.65rem !important;
-  font-family: Syne, sans-serif !important;
-  font-size: 0.58rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.2em;
-  color: rgba(201, 162, 39, 0.8) !important;
-}
-
-.anissa-dossier {
-  display: grid;
-  gap: 0.55rem;
-  margin: 0 0 1.5rem;
-}
-
-@media (min-width: 720px) {
-  .anissa-dossier {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.anissa-dossier > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.75rem 0.2rem;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.14);
-}
-
-.anissa-dossier dt {
-  font-family: Syne, sans-serif;
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: rgba(201, 162, 39, 0.75);
-}
-
-.anissa-dossier dd {
-  margin: 0;
-  font-family: Cinzel, serif;
-  font-size: 0.85rem;
+.anissa-rank__list li span {
+  color: rgba(244, 239, 232, 0.5);
   letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.anissa-rank__list li strong {
+  font-family: Cinzel, serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   color: #fff;
   text-align: right;
 }
 
-.anissa-final {
-  margin: 0 0 1.25rem;
-  max-width: 24ch;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(1.6rem, 5vw, 2.5rem);
-  line-height: 1.05;
-  letter-spacing: 0.04em;
-  color: #fff;
+.anissa-story {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2.5rem;
 }
 
-.anissa-final-cta {
-  border: 1px solid rgba(201, 162, 39, 0.5);
-  background: linear-gradient(135deg, rgba(201, 162, 39, 0.18), rgba(168, 85, 247, 0.12));
-  color: #fff;
-  padding: 0.95rem 1.2rem;
-  font-family: Cinzel, serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.22em;
-  cursor: pointer;
+.anissa-story li {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(244, 239, 232, 0.12);
 }
 
-.anissa-final-cta:hover {
-  border-color: var(--gold);
-  box-shadow: 0 0 28px rgba(168, 85, 247, 0.2);
-}
-
-.anissa-foot {
+.anissa-story__index {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 1.1rem clamp(1rem, 4vw, 2.5rem) 1.6rem;
-  font-family: Syne, sans-serif;
-  font-size: 0.52rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: rgba(247, 241, 232, 0.35);
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 232, 0.42);
+}
+
+.anissa-story__index em {
+  font-style: normal;
+}
+
+.anissa-story h3 {
+  margin: 0 0 0.75rem;
+  font-family: Cinzel, serif;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.anissa-story p {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(244, 239, 232, 0.7);
+}
+
+.anissa-block--split {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .anissa-block--split {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+    gap: 4rem;
+  }
+}
+
+.anissa-plain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.anissa-plain li {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.35rem 0;
+  border-top: 1px solid rgba(244, 239, 232, 0.12);
+}
+
+.anissa-plain li:last-child {
+  border-bottom: 1px solid rgba(244, 239, 232, 0.12);
+}
+
+.anissa-plain h3 {
+  margin: 0;
+  font-family: Cinzel, serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+}
+
+.anissa-plain span {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 232, 0.42);
+}
+
+.anissa-plain p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(244, 239, 232, 0.68);
+}
+
+.anissa-lore-flow {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.anissa-lore-flow article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.anissa-lore-flow span {
+  font-family: Cinzel, serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  color: rgba(244, 239, 232, 0.35);
+  padding-top: 0.2rem;
+}
+
+.anissa-lore-flow h3 {
+  margin: 0 0 0.55rem;
+  font-family: Cinzel, serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+}
+
+.anissa-lore-flow p {
+  margin: 0;
+  max-width: 48ch;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(244, 239, 232, 0.68);
+}
+
+.anissa-file {
+  margin: 2rem 0 2.5rem;
+  display: grid;
+  gap: 0;
+  max-width: 520px;
+}
+
+.anissa-file > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid rgba(244, 239, 232, 0.12);
+}
+
+.anissa-file > div:last-child {
+  border-bottom: 1px solid rgba(244, 239, 232, 0.12);
+}
+
+.anissa-file dt {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 232, 0.42);
+}
+
+.anissa-file dd {
+  margin: 0;
+  font-family: Cinzel, serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-align: right;
+}
+
+.anissa-endline {
+  margin: 0 0 2rem;
+  font-family: Cinzel, serif;
+  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.anissa__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem clamp(1.1rem, 5vw, 3rem) 2.5rem;
+  border-top: 1px solid rgba(244, 239, 232, 0.08);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 232, 0.35);
+}
+
+@media (max-width: 640px) {
+  .anissa-hero__content {
+    padding-bottom: 2.5rem;
+  }
+
+  .anissa__footer {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anissa-hero__media,
+  .anissa-strip__track {
+    animation: none !important;
+  }
 }
