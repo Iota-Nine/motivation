@@ -24,7 +24,7 @@ export function EndScreen({ clears, onRestart }: Props) {
         return
       }
     } catch {
-      /* user cancelled or failed — fall through to clipboard */
+      /* cancelled */
     }
 
     try {
@@ -39,8 +39,10 @@ export function EndScreen({ clears, onRestart }: Props) {
 
   return (
     <div className="the-end">
+      <div className="the-end__aurora" aria-hidden />
       <div className="the-end__panel">
         <p className="the-end__kicker">{ngPlus ? `CLEAR ×${clears}` : 'CLEAR'}</p>
+        <h2 className="the-end__brand">GODHOOD</h2>
         <button
           type="button"
           className="the-end__btn"
@@ -50,16 +52,21 @@ export function EndScreen({ clears, onRestart }: Props) {
           }}
         >
           <span className="the-end__title">THE END</span>
-          <span className="the-end__sub">GODHOOD</span>
+          <span className="the-end__sub">
+            {ngPlus ? 'NEW GAME+ UNLOCKED' : 'THRONE SECURED'}
+          </span>
           <span className="the-end__cta">
-            {ngPlus ? 'NEW GAME+ · PRESS TO CONTINUE' : 'PRESS TO CONTINUE · NEW GAME+'}
+            {ngPlus ? 'PRESS TO CONTINUE · HARDER CROWN' : 'PRESS TO CONTINUE · NEW GAME+'}
           </span>
         </button>
 
-        <button type="button" className="the-end__share" onClick={() => void share()}>
-          SHARE THE THRONE
-        </button>
+        <div className="the-end__row">
+          <button type="button" className="the-end__share" onClick={() => void share()}>
+            SHARE THE THRONE
+          </button>
+        </div>
         {shareNote && <p className="the-end__share-note">{shareNote}</p>}
+        <p className="the-end__foot">VERTIX PROTOCOL · COPY ME</p>
       </div>
     </div>
   )
